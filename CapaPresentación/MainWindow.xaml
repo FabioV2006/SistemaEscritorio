@@ -15,7 +15,8 @@
 
         <Border Grid.Column="0" Background="White" BorderBrush="#DDD" BorderThickness="0,0,1,0">
             <ScrollViewer VerticalScrollBarVisibility="Auto">
-                <StackPanel>
+                <StackPanel x:Name="MenuStackPanel">
+
                     <TextBlock Text="DistribuidoraSYS" FontSize="18" FontWeight="Bold" Margin="20" Foreground="#0078d4" TextAlignment="Center"/>
 
                     <Button x:Name="BtnDashboard" Content="🏠 Dashboard" Margin="10,2" Click="BtnNavigate_Click" Tag="Vistas/DashboardPage.xaml" FontWeight="Medium" Padding="10,8"/>

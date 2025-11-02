@@ -6,7 +6,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using CapaDatos;
-
 namespace CapaPresentación
 {
     public partial class App : Application
@@ -15,25 +14,24 @@ namespace CapaPresentación
         {
             base.OnStartup(e);
 
-            // 1. Quita "StartupUri=" de tu App.xaml
+            // Asegúrate de haber BORRADO 'StartupUri="MainWindow.xaml"' de tu App.xaml
 
-            // 2. Crear y mostrar la ventana de Login de forma modal
             LoginWindow loginWindow = new LoginWindow();
-            bool? loginResult = loginWindow.ShowDialog();
+            bool? loginResult = loginWindow.ShowDialog(); // Espera a que se cierre
 
-            // 3. Comprobar si el login fue exitoso
             if (loginResult == true)
             {
-                // 4. Si fue exitoso, obtener el usuario validado
+                // El login fue exitoso, obtenemos el usuario
                 USUARIOS usuarioLogueado = loginWindow.UsuarioLogueado;
 
-                // 5. Crear y mostrar la MainWindow, pasándole el usuario
+                // Creamos y mostramos la MainWindow, pasándole el usuario
                 MainWindow mainWindow = new MainWindow(usuarioLogueado);
                 mainWindow.Show();
             }
             else
             {
-                // 6. Si el login se cierra o falla, la aplicación termina.
+                // Si loginResult es 'false' o 'null' (el usuario cerró),
+                // la aplicación simplemente termina.
                 Application.Current.Shutdown();
             }
         }

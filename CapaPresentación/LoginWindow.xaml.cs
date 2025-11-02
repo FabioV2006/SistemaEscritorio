@@ -18,9 +18,7 @@ namespace CapaPresentación
 {
     public partial class LoginWindow : Window
     {
-        // 2. Propiedad pública para pasar el usuario validado
         public USUARIOS UsuarioLogueado { get; private set; }
-
         private CN_Usuario cn_usuario = new CN_Usuario();
 
         public LoginWindow()
@@ -30,32 +28,34 @@ namespace CapaPresentación
 
         private void btnIngresar_Click(object sender, RoutedEventArgs e)
         {
-            lblError.Visibility = Visibility.Collapsed; // Oculta error
-
+            lblError.Visibility = Visibility.Collapsed;
             string documento = txtDocumento.Text;
-            string clave = txtClave.Password; // Se usa .Password para PasswordBox
+            string clave = txtClave.Password;
 
-            // 3. Llamar a la Capa de Negocio para validar
+            // 1. Llamamos a la Capa de Negocio
             this.UsuarioLogueado = cn_usuario.Validar(documento, clave);
 
-            // 4. Comprobar el resultado
+            // 2. Comprobamos el resultado
             if (this.UsuarioLogueado != null)
             {
-                // ¡Éxito!
-                this.DialogResult = true; // Indicar éxito a App.xaml.cs
-                this.Close();             // Cerrar esta ventana
+                // ¡ÉXITO!
+                this.DialogResult = true; // Avisa a App.xaml.cs que fue exitoso
+                this.Close();             // Cierra esta ventana
             }
             else
             {
-                // Error
+                // ¡FALLO!
                 lblError.Visibility = Visibility.Visible;
-                this.DialogResult = false;
+                // NO hacemos nada más. La ventana permanece abierta
+                // y el usuario puede volver a intentarlo.
             }
         }
 
         private void btnSalir_Click(object sender, RoutedEventArgs e)
         {
-            Application.Current.Shutdown();
+            // El usuario decidió salir
+            this.DialogResult = false; // Avisa a App.xaml.cs que el usuario canceló
+            this.Close();
         }
     }
 }
