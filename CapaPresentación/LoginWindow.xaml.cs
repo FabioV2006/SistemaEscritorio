@@ -46,8 +46,8 @@ namespace CapaPresentación
             {
                 // ¡FALLO!
                 lblError.Visibility = Visibility.Visible;
-                // NO hacemos nada más. La ventana permanece abierta
-                // y el usuario puede volver a intentarlo.
+                // NO cerramos la app, solo mostramos el error.
+                // NO asignamos DialogResult.
             }
         }
 

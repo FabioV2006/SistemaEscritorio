@@ -39,39 +39,36 @@ namespace CapaPresentación
             // 4. Cargar la página de dashboard por defecto (si tiene permiso)
             if (BtnDashboard.Visibility == Visibility.Visible)
             {
-                // Asegúrate de crear una Page "Vistas/DashboardPage.xaml"
+                // (Debes crear esta página en tu proyecto)
                 MainFrame.Navigate(new Uri("Vistas/DashboardPage.xaml", UriKind.Relative));
                 TxtTituloPagina.Text = "Dashboard";
             }
             else
             {
                 TxtTituloPagina.Text = "Bienvenido";
-                // (Opcional) Navegar a una página de "Bienvenida" simple
             }
         }
 
-        // ESTA ES LA LÓGICA DE PERMISOS BASADA EN EL ROL
+        // Esta es la lógica de permisos basada en la BD
         private void CargarPermisos()
         {
-            // 1. Obtener la lista de permisos para el rol del usuario desde la CapaNegocio
-            //    Usamos .Value porque IdRol es nullable (aunque en tu BBDD es NOT NULL)
+            // 1. Obtener la lista de permisos desde la CapaNegocio
             _permisosUsuario = cn_permiso.Listar(_usuarioActual.IdRol.Value);
 
             // 2. Extraer solo los nombres de los menús
             var nombresMenu = _permisosUsuario.Select(p => p.NombreMenu).ToList();
 
             // 3. Ocultar TODOS los botones por defecto
-            //    Usamos el x:Name del StackPanel para iterar sus hijos
             foreach (var child in MenuStackPanel.Children)
             {
-                if (child is Button)
+                if (child is Button button) // Solo afecta a los Botones
                 {
-                    (child as Button).Visibility = Visibility.Collapsed;
+                    button.Visibility = Visibility.Collapsed;
                 }
             }
 
             // 4. Mostrar solo los botones que están en la lista de permisos
-            //    (Los nombres deben coincidir EXACTAMENTE con tu script SQL)
+            //    (Los nombres deben coincidir EXACTAMENTE con tu script SQL de datos de prueba)
             if (nombresMenu.Contains("Dashboard")) BtnDashboard.Visibility = Visibility.Visible;
             if (nombresMenu.Contains("Registrar Venta")) BtnRegistrarVenta.Visibility = Visibility.Visible;
             if (nombresMenu.Contains("Historial de Ventas")) BtnHistorialVentas.Visibility = Visibility.Visible;
