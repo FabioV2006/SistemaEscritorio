@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="7583240143414fdea2952968b6a40dda" Name="Diagram1">
+        <EntityTypeShape EntityType="DistribuidoraDBModel.CATEGORIAS" Width="1.5" PointX="3.75" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DistribuidoraDBModel.CLIENTES" Width="1.5" PointX="6" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DistribuidoraDBModel.COMPRAS" Width="1.5" PointX="5.25" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="DistribuidoraDBModel.DETALLE_COMPRAS" Width="1.5" PointX="10.5" PointY="10.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DistribuidoraDBModel.DETALLE_DEVOLUCIONES_CLIENTES" Width="1.5" PointX="13.5" PointY="10.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DistribuidoraDBModel.DETALLE_DEVOLUCIONES_PROVEEDORES" Width="1.5" PointX="9.75" PointY="14.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DistribuidoraDBModel.DETALLE_VENTAS" Width="1.5" PointX="10.5" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DistribuidoraDBModel.DEVOLUCIONES_CLIENTES" Width="1.5" PointX="8.25" PointY="10.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DistribuidoraDBModel.DEVOLUCIONES_PROVEEDORES" Width="1.5" PointX="7.5" PointY="14.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DistribuidoraDBModel.LABORATORIOS" Width="1.5" PointX="3.75" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DistribuidoraDBModel.LOTES" Width="1.5" PointX="8.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DistribuidoraDBModel.PERMISOS" Width="1.5" PointX="3" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DistribuidoraDBModel.PRODUCTOS" Width="1.5" PointX="6" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DistribuidoraDBModel.PROVEEDORES" Width="1.5" PointX="3" PointY="14.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DistribuidoraDBModel.ROLES" Width="1.5" PointX="0.75" PointY="9.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DistribuidoraDBModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DistribuidoraDBModel.USUARIOS" Width="1.5" PointX="3" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="DistribuidoraDBModel.VENTAS" Width="1.5" PointX="8.25" PointY="5.875" IsExpanded="true" />
+        <AssociationConnector Association="DistribuidoraDBModel.FK__PRODUCTOS__IdCat__5070F446" ManuallyRouted="false" />
+        <AssociationConnector Association="DistribuidoraDBModel.FK__VENTAS__IdClient__656C112C" ManuallyRouted="false" />
+        <AssociationConnector Association="DistribuidoraDBModel.FK__COMPRAS__IdProve__5CD6CB2B" ManuallyRouted="false" />
+        <AssociationConnector Association="DistribuidoraDBModel.FK__COMPRAS__IdUsuar__5BE2A6F2" ManuallyRouted="false" />
+        <AssociationConnector Association="DistribuidoraDBModel.FK__DETALLE_C__IdCom__60A75C0F" ManuallyRouted="false" />
+        <AssociationConnector Association="DistribuidoraDBModel.FK__DEVOLUCIO__IdCom__75A278F5" ManuallyRouted="false" />
+        <AssociationConnector Association="DistribuidoraDBModel.FK__DETALLE_C__IdLot__619B8048" ManuallyRouted="false" />
+        <AssociationConnector Association="DistribuidoraDBModel.FK__DETALLE_D__IdDev__71D1E811" ManuallyRouted="false" />
+        <AssociationConnector Association="DistribuidoraDBModel.FK__DETALLE_D__IdLot__72C60C4A" ManuallyRouted="false" />
+        <AssociationConnector Association="DistribuidoraDBModel.FK__DETALLE_D__IdDev__7A672E12" ManuallyRouted="false" />
+        <AssociationConnector Association="DistribuidoraDBModel.FK__DETALLE_D__IdLot__7B5B524B" ManuallyRouted="false" />
+        <AssociationConnector Association="DistribuidoraDBModel.FK__DETALLE_V__IdLot__6A30C649" ManuallyRouted="false" />
+        <AssociationConnector Association="DistribuidoraDBModel.FK__DETALLE_V__IdVen__693CA210" ManuallyRouted="false" />
+        <AssociationConnector Association="DistribuidoraDBModel.FK__DEVOLUCIO__IdUsu__6E01572D" ManuallyRouted="false" />
+        <AssociationConnector Association="DistribuidoraDBModel.FK__DEVOLUCIO__IdVen__6D0D32F4" ManuallyRouted="false" />
+        <AssociationConnector Association="DistribuidoraDBModel.FK__DEVOLUCIO__IdUsu__76969D2E" ManuallyRouted="false" />
+        <AssociationConnector Association="DistribuidoraDBModel.FK__PRODUCTOS__IdLab__5165187F" ManuallyRouted="false" />
+        <AssociationConnector Association="DistribuidoraDBModel.FK__LOTES__IdProduct__571DF1D5" ManuallyRouted="false" />
+        <AssociationConnector Association="DistribuidoraDBModel.FK__PERMISOS__IdRol__3F466844" ManuallyRouted="false" />
+        <AssociationConnector Association="DistribuidoraDBModel.FK__USUARIOS__IdRol__3B75D760" ManuallyRouted="false" />
+        <AssociationConnector Association="DistribuidoraDBModel.FK__VENTAS__IdUsuari__6477ECF3" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

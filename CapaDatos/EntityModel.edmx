@@ -1,0 +1,1425 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DistribuidoraDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CATEGORIAS">
+          <Key>
+            <PropertyRef Name="IdCategoria" />
+          </Key>
+          <Property Name="IdCategoria" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Estado" Type="bit" />
+        </EntityType>
+        <EntityType Name="CLIENTES">
+          <Key>
+            <PropertyRef Name="IdCliente" />
+          </Key>
+          <Property Name="IdCliente" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Documento" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="RazonSocial" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="NombreComercial" Type="varchar" MaxLength="100" />
+          <Property Name="Correo" Type="varchar" MaxLength="100" />
+          <Property Name="Telefono" Type="varchar" MaxLength="50" />
+          <Property Name="DireccionEnvio" Type="varchar" MaxLength="250" />
+          <Property Name="Estado" Type="bit" />
+        </EntityType>
+        <EntityType Name="COMPRAS">
+          <Key>
+            <PropertyRef Name="IdCompra" />
+          </Key>
+          <Property Name="IdCompra" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdUsuario" Type="int" />
+          <Property Name="IdProveedor" Type="int" />
+          <Property Name="TipoDocumento" Type="varchar" MaxLength="50" />
+          <Property Name="NumeroDocumento" Type="varchar" MaxLength="50" />
+          <Property Name="MontoTotal" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="FechaRegistro" Type="datetime" />
+        </EntityType>
+        <EntityType Name="DETALLE_COMPRAS">
+          <Key>
+            <PropertyRef Name="IdDetalleCompra" />
+          </Key>
+          <Property Name="IdDetalleCompra" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdCompra" Type="int" />
+          <Property Name="IdLote" Type="int" />
+          <Property Name="Cantidad" Type="int" />
+          <Property Name="PrecioCompraUnitario" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="MontoTotal" Type="decimal" Precision="10" Scale="2" />
+        </EntityType>
+        <EntityType Name="DETALLE_DEVOLUCIONES_CLIENTES">
+          <Key>
+            <PropertyRef Name="IdDetalleDevolucionCliente" />
+          </Key>
+          <Property Name="IdDetalleDevolucionCliente" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdDevolucionCliente" Type="int" />
+          <Property Name="IdLote" Type="int" />
+          <Property Name="Cantidad" Type="int" />
+          <Property Name="MontoUnitario" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="SubTotal" Type="decimal" Precision="10" Scale="2" />
+        </EntityType>
+        <EntityType Name="DETALLE_DEVOLUCIONES_PROVEEDORES">
+          <Key>
+            <PropertyRef Name="IdDetalleDevolucionProveedor" />
+          </Key>
+          <Property Name="IdDetalleDevolucionProveedor" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdDevolucionProveedor" Type="int" />
+          <Property Name="IdLote" Type="int" />
+          <Property Name="Cantidad" Type="int" />
+          <Property Name="MontoUnitario" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="SubTotal" Type="decimal" Precision="10" Scale="2" />
+        </EntityType>
+        <EntityType Name="DETALLE_VENTAS">
+          <Key>
+            <PropertyRef Name="IdDetalleVenta" />
+          </Key>
+          <Property Name="IdDetalleVenta" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdVenta" Type="int" />
+          <Property Name="IdLote" Type="int" />
+          <Property Name="Cantidad" Type="int" />
+          <Property Name="PrecioVentaUnitario" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="SubTotal" Type="decimal" Precision="10" Scale="2" />
+        </EntityType>
+        <EntityType Name="DEVOLUCIONES_CLIENTES">
+          <Key>
+            <PropertyRef Name="IdDevolucionCliente" />
+          </Key>
+          <Property Name="IdDevolucionCliente" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdVenta" Type="int" />
+          <Property Name="IdUsuario" Type="int" />
+          <Property Name="Motivo" Type="varchar" MaxLength="250" />
+          <Property Name="MontoTotalDevuelto" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="FechaRegistro" Type="datetime" />
+        </EntityType>
+        <EntityType Name="DEVOLUCIONES_PROVEEDORES">
+          <Key>
+            <PropertyRef Name="IdDevolucionProveedor" />
+          </Key>
+          <Property Name="IdDevolucionProveedor" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdCompra" Type="int" />
+          <Property Name="IdUsuario" Type="int" />
+          <Property Name="Motivo" Type="varchar" MaxLength="250" />
+          <Property Name="MontoTotalDevuelto" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="FechaRegistro" Type="datetime" />
+        </EntityType>
+        <EntityType Name="LABORATORIOS">
+          <Key>
+            <PropertyRef Name="IdLaboratorio" />
+          </Key>
+          <Property Name="IdLaboratorio" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="200" />
+          <Property Name="Estado" Type="bit" />
+        </EntityType>
+        <EntityType Name="LOTES">
+          <Key>
+            <PropertyRef Name="IdLote" />
+          </Key>
+          <Property Name="IdLote" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdProducto" Type="int" />
+          <Property Name="NumeroLote" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="FechaVencimiento" Type="date" Nullable="false" />
+          <Property Name="Stock" Type="int" Nullable="false" />
+          <Property Name="PrecioCompra" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="PrecioVenta" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="UbicacionAlmacen" Type="varchar" MaxLength="100" />
+          <Property Name="FechaRegistro" Type="datetime" />
+        </EntityType>
+        <EntityType Name="PERMISOS">
+          <Key>
+            <PropertyRef Name="IdPermiso" />
+          </Key>
+          <Property Name="IdPermiso" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdRol" Type="int" />
+          <Property Name="NombreMenu" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PRODUCTOS">
+          <Key>
+            <PropertyRef Name="IdProducto" />
+          </Key>
+          <Property Name="IdProducto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Codigo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="120" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="250" />
+          <Property Name="IdCategoria" Type="int" />
+          <Property Name="IdLaboratorio" Type="int" />
+          <Property Name="RequiereReceta" Type="bit" />
+          <Property Name="Estado" Type="bit" />
+        </EntityType>
+        <EntityType Name="PROVEEDORES">
+          <Key>
+            <PropertyRef Name="IdProveedor" />
+          </Key>
+          <Property Name="IdProveedor" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Documento" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="RazonSocial" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Correo" Type="varchar" MaxLength="100" />
+          <Property Name="Telefono" Type="varchar" MaxLength="50" />
+          <Property Name="Estado" Type="bit" />
+        </EntityType>
+        <EntityType Name="ROLES">
+          <Key>
+            <PropertyRef Name="IdRol" />
+          </Key>
+          <Property Name="IdRol" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="USUARIOS">
+          <Key>
+            <PropertyRef Name="IdUsuario" />
+          </Key>
+          <Property Name="IdUsuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdRol" Type="int" />
+          <Property Name="Documento" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="NombreCompleto" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Correo" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Clave" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="Estado" Type="bit" />
+        </EntityType>
+        <EntityType Name="VENTAS">
+          <Key>
+            <PropertyRef Name="IdVenta" />
+          </Key>
+          <Property Name="IdVenta" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdUsuario" Type="int" />
+          <Property Name="IdCliente" Type="int" />
+          <Property Name="TipoDocumento" Type="varchar" MaxLength="50" />
+          <Property Name="NumeroDocumento" Type="varchar" MaxLength="50" />
+          <Property Name="MontoTotal" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="MontoPago" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="MontoCambio" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="FechaRegistro" Type="datetime" />
+        </EntityType>
+        <Association Name="FK__COMPRAS__IdProve__5CD6CB2B">
+          <End Role="PROVEEDORES" Type="Self.PROVEEDORES" Multiplicity="0..1" />
+          <End Role="COMPRAS" Type="Self.COMPRAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PROVEEDORES">
+              <PropertyRef Name="IdProveedor" />
+            </Principal>
+            <Dependent Role="COMPRAS">
+              <PropertyRef Name="IdProveedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__COMPRAS__IdUsuar__5BE2A6F2">
+          <End Role="USUARIOS" Type="Self.USUARIOS" Multiplicity="0..1" />
+          <End Role="COMPRAS" Type="Self.COMPRAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USUARIOS">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="COMPRAS">
+              <PropertyRef Name="IdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DETALLE_C__IdCom__60A75C0F">
+          <End Role="COMPRAS" Type="Self.COMPRAS" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="DETALLE_COMPRAS" Type="Self.DETALLE_COMPRAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="COMPRAS">
+              <PropertyRef Name="IdCompra" />
+            </Principal>
+            <Dependent Role="DETALLE_COMPRAS">
+              <PropertyRef Name="IdCompra" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DETALLE_C__IdLot__619B8048">
+          <End Role="LOTES" Type="Self.LOTES" Multiplicity="0..1" />
+          <End Role="DETALLE_COMPRAS" Type="Self.DETALLE_COMPRAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LOTES">
+              <PropertyRef Name="IdLote" />
+            </Principal>
+            <Dependent Role="DETALLE_COMPRAS">
+              <PropertyRef Name="IdLote" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DETALLE_D__IdDev__71D1E811">
+          <End Role="DEVOLUCIONES_CLIENTES" Type="Self.DEVOLUCIONES_CLIENTES" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="DETALLE_DEVOLUCIONES_CLIENTES" Type="Self.DETALLE_DEVOLUCIONES_CLIENTES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DEVOLUCIONES_CLIENTES">
+              <PropertyRef Name="IdDevolucionCliente" />
+            </Principal>
+            <Dependent Role="DETALLE_DEVOLUCIONES_CLIENTES">
+              <PropertyRef Name="IdDevolucionCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DETALLE_D__IdDev__7A672E12">
+          <End Role="DEVOLUCIONES_PROVEEDORES" Type="Self.DEVOLUCIONES_PROVEEDORES" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="DETALLE_DEVOLUCIONES_PROVEEDORES" Type="Self.DETALLE_DEVOLUCIONES_PROVEEDORES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DEVOLUCIONES_PROVEEDORES">
+              <PropertyRef Name="IdDevolucionProveedor" />
+            </Principal>
+            <Dependent Role="DETALLE_DEVOLUCIONES_PROVEEDORES">
+              <PropertyRef Name="IdDevolucionProveedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DETALLE_D__IdLot__72C60C4A">
+          <End Role="LOTES" Type="Self.LOTES" Multiplicity="0..1" />
+          <End Role="DETALLE_DEVOLUCIONES_CLIENTES" Type="Self.DETALLE_DEVOLUCIONES_CLIENTES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LOTES">
+              <PropertyRef Name="IdLote" />
+            </Principal>
+            <Dependent Role="DETALLE_DEVOLUCIONES_CLIENTES">
+              <PropertyRef Name="IdLote" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DETALLE_D__IdLot__7B5B524B">
+          <End Role="LOTES" Type="Self.LOTES" Multiplicity="0..1" />
+          <End Role="DETALLE_DEVOLUCIONES_PROVEEDORES" Type="Self.DETALLE_DEVOLUCIONES_PROVEEDORES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LOTES">
+              <PropertyRef Name="IdLote" />
+            </Principal>
+            <Dependent Role="DETALLE_DEVOLUCIONES_PROVEEDORES">
+              <PropertyRef Name="IdLote" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DETALLE_V__IdLot__6A30C649">
+          <End Role="LOTES" Type="Self.LOTES" Multiplicity="0..1" />
+          <End Role="DETALLE_VENTAS" Type="Self.DETALLE_VENTAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LOTES">
+              <PropertyRef Name="IdLote" />
+            </Principal>
+            <Dependent Role="DETALLE_VENTAS">
+              <PropertyRef Name="IdLote" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DETALLE_V__IdVen__693CA210">
+          <End Role="VENTAS" Type="Self.VENTAS" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="DETALLE_VENTAS" Type="Self.DETALLE_VENTAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VENTAS">
+              <PropertyRef Name="IdVenta" />
+            </Principal>
+            <Dependent Role="DETALLE_VENTAS">
+              <PropertyRef Name="IdVenta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DEVOLUCIO__IdCom__75A278F5">
+          <End Role="COMPRAS" Type="Self.COMPRAS" Multiplicity="0..1" />
+          <End Role="DEVOLUCIONES_PROVEEDORES" Type="Self.DEVOLUCIONES_PROVEEDORES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="COMPRAS">
+              <PropertyRef Name="IdCompra" />
+            </Principal>
+            <Dependent Role="DEVOLUCIONES_PROVEEDORES">
+              <PropertyRef Name="IdCompra" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DEVOLUCIO__IdUsu__6E01572D">
+          <End Role="USUARIOS" Type="Self.USUARIOS" Multiplicity="0..1" />
+          <End Role="DEVOLUCIONES_CLIENTES" Type="Self.DEVOLUCIONES_CLIENTES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USUARIOS">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="DEVOLUCIONES_CLIENTES">
+              <PropertyRef Name="IdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DEVOLUCIO__IdUsu__76969D2E">
+          <End Role="USUARIOS" Type="Self.USUARIOS" Multiplicity="0..1" />
+          <End Role="DEVOLUCIONES_PROVEEDORES" Type="Self.DEVOLUCIONES_PROVEEDORES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USUARIOS">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="DEVOLUCIONES_PROVEEDORES">
+              <PropertyRef Name="IdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DEVOLUCIO__IdVen__6D0D32F4">
+          <End Role="VENTAS" Type="Self.VENTAS" Multiplicity="0..1" />
+          <End Role="DEVOLUCIONES_CLIENTES" Type="Self.DEVOLUCIONES_CLIENTES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VENTAS">
+              <PropertyRef Name="IdVenta" />
+            </Principal>
+            <Dependent Role="DEVOLUCIONES_CLIENTES">
+              <PropertyRef Name="IdVenta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__LOTES__IdProduct__571DF1D5">
+          <End Role="PRODUCTOS" Type="Self.PRODUCTOS" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="LOTES" Type="Self.LOTES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PRODUCTOS">
+              <PropertyRef Name="IdProducto" />
+            </Principal>
+            <Dependent Role="LOTES">
+              <PropertyRef Name="IdProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PERMISOS__IdRol__3F466844">
+          <End Role="ROLES" Type="Self.ROLES" Multiplicity="0..1" />
+          <End Role="PERMISOS" Type="Self.PERMISOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ROLES">
+              <PropertyRef Name="IdRol" />
+            </Principal>
+            <Dependent Role="PERMISOS">
+              <PropertyRef Name="IdRol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PRODUCTOS__IdCat__5070F446">
+          <End Role="CATEGORIAS" Type="Self.CATEGORIAS" Multiplicity="0..1" />
+          <End Role="PRODUCTOS" Type="Self.PRODUCTOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CATEGORIAS">
+              <PropertyRef Name="IdCategoria" />
+            </Principal>
+            <Dependent Role="PRODUCTOS">
+              <PropertyRef Name="IdCategoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PRODUCTOS__IdLab__5165187F">
+          <End Role="LABORATORIOS" Type="Self.LABORATORIOS" Multiplicity="0..1" />
+          <End Role="PRODUCTOS" Type="Self.PRODUCTOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LABORATORIOS">
+              <PropertyRef Name="IdLaboratorio" />
+            </Principal>
+            <Dependent Role="PRODUCTOS">
+              <PropertyRef Name="IdLaboratorio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__USUARIOS__IdRol__3B75D760">
+          <End Role="ROLES" Type="Self.ROLES" Multiplicity="0..1" />
+          <End Role="USUARIOS" Type="Self.USUARIOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ROLES">
+              <PropertyRef Name="IdRol" />
+            </Principal>
+            <Dependent Role="USUARIOS">
+              <PropertyRef Name="IdRol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__VENTAS__IdClient__656C112C">
+          <End Role="CLIENTES" Type="Self.CLIENTES" Multiplicity="0..1" />
+          <End Role="VENTAS" Type="Self.VENTAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CLIENTES">
+              <PropertyRef Name="IdCliente" />
+            </Principal>
+            <Dependent Role="VENTAS">
+              <PropertyRef Name="IdCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__VENTAS__IdUsuari__6477ECF3">
+          <End Role="USUARIOS" Type="Self.USUARIOS" Multiplicity="0..1" />
+          <End Role="VENTAS" Type="Self.VENTAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USUARIOS">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="VENTAS">
+              <PropertyRef Name="IdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DistribuidoraDBModelStoreContainer">
+          <EntitySet Name="CATEGORIAS" EntityType="Self.CATEGORIAS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CLIENTES" EntityType="Self.CLIENTES" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="COMPRAS" EntityType="Self.COMPRAS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DETALLE_COMPRAS" EntityType="Self.DETALLE_COMPRAS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DETALLE_DEVOLUCIONES_CLIENTES" EntityType="Self.DETALLE_DEVOLUCIONES_CLIENTES" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DETALLE_DEVOLUCIONES_PROVEEDORES" EntityType="Self.DETALLE_DEVOLUCIONES_PROVEEDORES" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DETALLE_VENTAS" EntityType="Self.DETALLE_VENTAS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DEVOLUCIONES_CLIENTES" EntityType="Self.DEVOLUCIONES_CLIENTES" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DEVOLUCIONES_PROVEEDORES" EntityType="Self.DEVOLUCIONES_PROVEEDORES" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LABORATORIOS" EntityType="Self.LABORATORIOS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LOTES" EntityType="Self.LOTES" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PERMISOS" EntityType="Self.PERMISOS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PRODUCTOS" EntityType="Self.PRODUCTOS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PROVEEDORES" EntityType="Self.PROVEEDORES" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ROLES" EntityType="Self.ROLES" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="USUARIOS" EntityType="Self.USUARIOS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VENTAS" EntityType="Self.VENTAS" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__COMPRAS__IdProve__5CD6CB2B" Association="Self.FK__COMPRAS__IdProve__5CD6CB2B">
+            <End Role="PROVEEDORES" EntitySet="PROVEEDORES" />
+            <End Role="COMPRAS" EntitySet="COMPRAS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__COMPRAS__IdUsuar__5BE2A6F2" Association="Self.FK__COMPRAS__IdUsuar__5BE2A6F2">
+            <End Role="USUARIOS" EntitySet="USUARIOS" />
+            <End Role="COMPRAS" EntitySet="COMPRAS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DETALLE_C__IdCom__60A75C0F" Association="Self.FK__DETALLE_C__IdCom__60A75C0F">
+            <End Role="COMPRAS" EntitySet="COMPRAS" />
+            <End Role="DETALLE_COMPRAS" EntitySet="DETALLE_COMPRAS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DETALLE_C__IdLot__619B8048" Association="Self.FK__DETALLE_C__IdLot__619B8048">
+            <End Role="LOTES" EntitySet="LOTES" />
+            <End Role="DETALLE_COMPRAS" EntitySet="DETALLE_COMPRAS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DETALLE_D__IdDev__71D1E811" Association="Self.FK__DETALLE_D__IdDev__71D1E811">
+            <End Role="DEVOLUCIONES_CLIENTES" EntitySet="DEVOLUCIONES_CLIENTES" />
+            <End Role="DETALLE_DEVOLUCIONES_CLIENTES" EntitySet="DETALLE_DEVOLUCIONES_CLIENTES" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DETALLE_D__IdDev__7A672E12" Association="Self.FK__DETALLE_D__IdDev__7A672E12">
+            <End Role="DEVOLUCIONES_PROVEEDORES" EntitySet="DEVOLUCIONES_PROVEEDORES" />
+            <End Role="DETALLE_DEVOLUCIONES_PROVEEDORES" EntitySet="DETALLE_DEVOLUCIONES_PROVEEDORES" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DETALLE_D__IdLot__72C60C4A" Association="Self.FK__DETALLE_D__IdLot__72C60C4A">
+            <End Role="LOTES" EntitySet="LOTES" />
+            <End Role="DETALLE_DEVOLUCIONES_CLIENTES" EntitySet="DETALLE_DEVOLUCIONES_CLIENTES" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DETALLE_D__IdLot__7B5B524B" Association="Self.FK__DETALLE_D__IdLot__7B5B524B">
+            <End Role="LOTES" EntitySet="LOTES" />
+            <End Role="DETALLE_DEVOLUCIONES_PROVEEDORES" EntitySet="DETALLE_DEVOLUCIONES_PROVEEDORES" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DETALLE_V__IdLot__6A30C649" Association="Self.FK__DETALLE_V__IdLot__6A30C649">
+            <End Role="LOTES" EntitySet="LOTES" />
+            <End Role="DETALLE_VENTAS" EntitySet="DETALLE_VENTAS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DETALLE_V__IdVen__693CA210" Association="Self.FK__DETALLE_V__IdVen__693CA210">
+            <End Role="VENTAS" EntitySet="VENTAS" />
+            <End Role="DETALLE_VENTAS" EntitySet="DETALLE_VENTAS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DEVOLUCIO__IdCom__75A278F5" Association="Self.FK__DEVOLUCIO__IdCom__75A278F5">
+            <End Role="COMPRAS" EntitySet="COMPRAS" />
+            <End Role="DEVOLUCIONES_PROVEEDORES" EntitySet="DEVOLUCIONES_PROVEEDORES" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DEVOLUCIO__IdUsu__6E01572D" Association="Self.FK__DEVOLUCIO__IdUsu__6E01572D">
+            <End Role="USUARIOS" EntitySet="USUARIOS" />
+            <End Role="DEVOLUCIONES_CLIENTES" EntitySet="DEVOLUCIONES_CLIENTES" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DEVOLUCIO__IdUsu__76969D2E" Association="Self.FK__DEVOLUCIO__IdUsu__76969D2E">
+            <End Role="USUARIOS" EntitySet="USUARIOS" />
+            <End Role="DEVOLUCIONES_PROVEEDORES" EntitySet="DEVOLUCIONES_PROVEEDORES" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DEVOLUCIO__IdVen__6D0D32F4" Association="Self.FK__DEVOLUCIO__IdVen__6D0D32F4">
+            <End Role="VENTAS" EntitySet="VENTAS" />
+            <End Role="DEVOLUCIONES_CLIENTES" EntitySet="DEVOLUCIONES_CLIENTES" />
+          </AssociationSet>
+          <AssociationSet Name="FK__LOTES__IdProduct__571DF1D5" Association="Self.FK__LOTES__IdProduct__571DF1D5">
+            <End Role="PRODUCTOS" EntitySet="PRODUCTOS" />
+            <End Role="LOTES" EntitySet="LOTES" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PERMISOS__IdRol__3F466844" Association="Self.FK__PERMISOS__IdRol__3F466844">
+            <End Role="ROLES" EntitySet="ROLES" />
+            <End Role="PERMISOS" EntitySet="PERMISOS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PRODUCTOS__IdCat__5070F446" Association="Self.FK__PRODUCTOS__IdCat__5070F446">
+            <End Role="CATEGORIAS" EntitySet="CATEGORIAS" />
+            <End Role="PRODUCTOS" EntitySet="PRODUCTOS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PRODUCTOS__IdLab__5165187F" Association="Self.FK__PRODUCTOS__IdLab__5165187F">
+            <End Role="LABORATORIOS" EntitySet="LABORATORIOS" />
+            <End Role="PRODUCTOS" EntitySet="PRODUCTOS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__USUARIOS__IdRol__3B75D760" Association="Self.FK__USUARIOS__IdRol__3B75D760">
+            <End Role="ROLES" EntitySet="ROLES" />
+            <End Role="USUARIOS" EntitySet="USUARIOS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__VENTAS__IdClient__656C112C" Association="Self.FK__VENTAS__IdClient__656C112C">
+            <End Role="CLIENTES" EntitySet="CLIENTES" />
+            <End Role="VENTAS" EntitySet="VENTAS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__VENTAS__IdUsuari__6477ECF3" Association="Self.FK__VENTAS__IdUsuari__6477ECF3">
+            <End Role="USUARIOS" EntitySet="USUARIOS" />
+            <End Role="VENTAS" EntitySet="VENTAS" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DistribuidoraDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="CATEGORIAS">
+          <Key>
+            <PropertyRef Name="IdCategoria" />
+          </Key>
+          <Property Name="IdCategoria" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Estado" Type="Boolean" />
+          <NavigationProperty Name="PRODUCTOS" Relationship="Self.FK__PRODUCTOS__IdCat__5070F446" FromRole="CATEGORIAS" ToRole="PRODUCTOS" />
+        </EntityType>
+        <EntityType Name="CLIENTES">
+          <Key>
+            <PropertyRef Name="IdCliente" />
+          </Key>
+          <Property Name="IdCliente" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Documento" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="RazonSocial" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NombreComercial" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Correo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Telefono" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DireccionEnvio" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Estado" Type="Boolean" />
+          <NavigationProperty Name="VENTAS" Relationship="Self.FK__VENTAS__IdClient__656C112C" FromRole="CLIENTES" ToRole="VENTAS" />
+        </EntityType>
+        <EntityType Name="COMPRAS">
+          <Key>
+            <PropertyRef Name="IdCompra" />
+          </Key>
+          <Property Name="IdCompra" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdUsuario" Type="Int32" />
+          <Property Name="IdProveedor" Type="Int32" />
+          <Property Name="TipoDocumento" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NumeroDocumento" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MontoTotal" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="FechaRegistro" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="PROVEEDORES" Relationship="Self.FK__COMPRAS__IdProve__5CD6CB2B" FromRole="COMPRAS" ToRole="PROVEEDORES" />
+          <NavigationProperty Name="USUARIOS" Relationship="Self.FK__COMPRAS__IdUsuar__5BE2A6F2" FromRole="COMPRAS" ToRole="USUARIOS" />
+          <NavigationProperty Name="DETALLE_COMPRAS" Relationship="Self.FK__DETALLE_C__IdCom__60A75C0F" FromRole="COMPRAS" ToRole="DETALLE_COMPRAS" />
+          <NavigationProperty Name="DEVOLUCIONES_PROVEEDORES" Relationship="Self.FK__DEVOLUCIO__IdCom__75A278F5" FromRole="COMPRAS" ToRole="DEVOLUCIONES_PROVEEDORES" />
+        </EntityType>
+        <EntityType Name="DETALLE_COMPRAS">
+          <Key>
+            <PropertyRef Name="IdDetalleCompra" />
+          </Key>
+          <Property Name="IdDetalleCompra" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdCompra" Type="Int32" />
+          <Property Name="IdLote" Type="Int32" />
+          <Property Name="Cantidad" Type="Int32" />
+          <Property Name="PrecioCompraUnitario" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="MontoTotal" Type="Decimal" Precision="10" Scale="2" />
+          <NavigationProperty Name="COMPRAS" Relationship="Self.FK__DETALLE_C__IdCom__60A75C0F" FromRole="DETALLE_COMPRAS" ToRole="COMPRAS" />
+          <NavigationProperty Name="LOTES" Relationship="Self.FK__DETALLE_C__IdLot__619B8048" FromRole="DETALLE_COMPRAS" ToRole="LOTES" />
+        </EntityType>
+        <EntityType Name="DETALLE_DEVOLUCIONES_CLIENTES">
+          <Key>
+            <PropertyRef Name="IdDetalleDevolucionCliente" />
+          </Key>
+          <Property Name="IdDetalleDevolucionCliente" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdDevolucionCliente" Type="Int32" />
+          <Property Name="IdLote" Type="Int32" />
+          <Property Name="Cantidad" Type="Int32" />
+          <Property Name="MontoUnitario" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="SubTotal" Type="Decimal" Precision="10" Scale="2" />
+          <NavigationProperty Name="DEVOLUCIONES_CLIENTES" Relationship="Self.FK__DETALLE_D__IdDev__71D1E811" FromRole="DETALLE_DEVOLUCIONES_CLIENTES" ToRole="DEVOLUCIONES_CLIENTES" />
+          <NavigationProperty Name="LOTES" Relationship="Self.FK__DETALLE_D__IdLot__72C60C4A" FromRole="DETALLE_DEVOLUCIONES_CLIENTES" ToRole="LOTES" />
+        </EntityType>
+        <EntityType Name="DETALLE_DEVOLUCIONES_PROVEEDORES">
+          <Key>
+            <PropertyRef Name="IdDetalleDevolucionProveedor" />
+          </Key>
+          <Property Name="IdDetalleDevolucionProveedor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdDevolucionProveedor" Type="Int32" />
+          <Property Name="IdLote" Type="Int32" />
+          <Property Name="Cantidad" Type="Int32" />
+          <Property Name="MontoUnitario" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="SubTotal" Type="Decimal" Precision="10" Scale="2" />
+          <NavigationProperty Name="DEVOLUCIONES_PROVEEDORES" Relationship="Self.FK__DETALLE_D__IdDev__7A672E12" FromRole="DETALLE_DEVOLUCIONES_PROVEEDORES" ToRole="DEVOLUCIONES_PROVEEDORES" />
+          <NavigationProperty Name="LOTES" Relationship="Self.FK__DETALLE_D__IdLot__7B5B524B" FromRole="DETALLE_DEVOLUCIONES_PROVEEDORES" ToRole="LOTES" />
+        </EntityType>
+        <EntityType Name="DETALLE_VENTAS">
+          <Key>
+            <PropertyRef Name="IdDetalleVenta" />
+          </Key>
+          <Property Name="IdDetalleVenta" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdVenta" Type="Int32" />
+          <Property Name="IdLote" Type="Int32" />
+          <Property Name="Cantidad" Type="Int32" />
+          <Property Name="PrecioVentaUnitario" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="SubTotal" Type="Decimal" Precision="10" Scale="2" />
+          <NavigationProperty Name="LOTES" Relationship="Self.FK__DETALLE_V__IdLot__6A30C649" FromRole="DETALLE_VENTAS" ToRole="LOTES" />
+          <NavigationProperty Name="VENTAS" Relationship="Self.FK__DETALLE_V__IdVen__693CA210" FromRole="DETALLE_VENTAS" ToRole="VENTAS" />
+        </EntityType>
+        <EntityType Name="DEVOLUCIONES_CLIENTES">
+          <Key>
+            <PropertyRef Name="IdDevolucionCliente" />
+          </Key>
+          <Property Name="IdDevolucionCliente" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdVenta" Type="Int32" />
+          <Property Name="IdUsuario" Type="Int32" />
+          <Property Name="Motivo" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="MontoTotalDevuelto" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="FechaRegistro" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="DETALLE_DEVOLUCIONES_CLIENTES" Relationship="Self.FK__DETALLE_D__IdDev__71D1E811" FromRole="DEVOLUCIONES_CLIENTES" ToRole="DETALLE_DEVOLUCIONES_CLIENTES" />
+          <NavigationProperty Name="USUARIOS" Relationship="Self.FK__DEVOLUCIO__IdUsu__6E01572D" FromRole="DEVOLUCIONES_CLIENTES" ToRole="USUARIOS" />
+          <NavigationProperty Name="VENTAS" Relationship="Self.FK__DEVOLUCIO__IdVen__6D0D32F4" FromRole="DEVOLUCIONES_CLIENTES" ToRole="VENTAS" />
+        </EntityType>
+        <EntityType Name="DEVOLUCIONES_PROVEEDORES">
+          <Key>
+            <PropertyRef Name="IdDevolucionProveedor" />
+          </Key>
+          <Property Name="IdDevolucionProveedor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdCompra" Type="Int32" />
+          <Property Name="IdUsuario" Type="Int32" />
+          <Property Name="Motivo" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="MontoTotalDevuelto" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="FechaRegistro" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="COMPRAS" Relationship="Self.FK__DEVOLUCIO__IdCom__75A278F5" FromRole="DEVOLUCIONES_PROVEEDORES" ToRole="COMPRAS" />
+          <NavigationProperty Name="DETALLE_DEVOLUCIONES_PROVEEDORES" Relationship="Self.FK__DETALLE_D__IdDev__7A672E12" FromRole="DEVOLUCIONES_PROVEEDORES" ToRole="DETALLE_DEVOLUCIONES_PROVEEDORES" />
+          <NavigationProperty Name="USUARIOS" Relationship="Self.FK__DEVOLUCIO__IdUsu__76969D2E" FromRole="DEVOLUCIONES_PROVEEDORES" ToRole="USUARIOS" />
+        </EntityType>
+        <EntityType Name="LABORATORIOS">
+          <Key>
+            <PropertyRef Name="IdLaboratorio" />
+          </Key>
+          <Property Name="IdLaboratorio" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Estado" Type="Boolean" />
+          <NavigationProperty Name="PRODUCTOS" Relationship="Self.FK__PRODUCTOS__IdLab__5165187F" FromRole="LABORATORIOS" ToRole="PRODUCTOS" />
+        </EntityType>
+        <EntityType Name="LOTES">
+          <Key>
+            <PropertyRef Name="IdLote" />
+          </Key>
+          <Property Name="IdLote" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdProducto" Type="Int32" />
+          <Property Name="NumeroLote" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FechaVencimiento" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Stock" Type="Int32" Nullable="false" />
+          <Property Name="PrecioCompra" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="PrecioVenta" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="UbicacionAlmacen" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="FechaRegistro" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="DETALLE_COMPRAS" Relationship="Self.FK__DETALLE_C__IdLot__619B8048" FromRole="LOTES" ToRole="DETALLE_COMPRAS" />
+          <NavigationProperty Name="DETALLE_DEVOLUCIONES_CLIENTES" Relationship="Self.FK__DETALLE_D__IdLot__72C60C4A" FromRole="LOTES" ToRole="DETALLE_DEVOLUCIONES_CLIENTES" />
+          <NavigationProperty Name="DETALLE_DEVOLUCIONES_PROVEEDORES" Relationship="Self.FK__DETALLE_D__IdLot__7B5B524B" FromRole="LOTES" ToRole="DETALLE_DEVOLUCIONES_PROVEEDORES" />
+          <NavigationProperty Name="DETALLE_VENTAS" Relationship="Self.FK__DETALLE_V__IdLot__6A30C649" FromRole="LOTES" ToRole="DETALLE_VENTAS" />
+          <NavigationProperty Name="PRODUCTOS" Relationship="Self.FK__LOTES__IdProduct__571DF1D5" FromRole="LOTES" ToRole="PRODUCTOS" />
+        </EntityType>
+        <EntityType Name="PERMISOS">
+          <Key>
+            <PropertyRef Name="IdPermiso" />
+          </Key>
+          <Property Name="IdPermiso" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdRol" Type="Int32" />
+          <Property Name="NombreMenu" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="ROLES" Relationship="Self.FK__PERMISOS__IdRol__3F466844" FromRole="PERMISOS" ToRole="ROLES" />
+        </EntityType>
+        <EntityType Name="PRODUCTOS">
+          <Key>
+            <PropertyRef Name="IdProducto" />
+          </Key>
+          <Property Name="IdProducto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Codigo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="120" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="IdCategoria" Type="Int32" />
+          <Property Name="IdLaboratorio" Type="Int32" />
+          <Property Name="RequiereReceta" Type="Boolean" />
+          <Property Name="Estado" Type="Boolean" />
+          <NavigationProperty Name="CATEGORIAS" Relationship="Self.FK__PRODUCTOS__IdCat__5070F446" FromRole="PRODUCTOS" ToRole="CATEGORIAS" />
+          <NavigationProperty Name="LABORATORIOS" Relationship="Self.FK__PRODUCTOS__IdLab__5165187F" FromRole="PRODUCTOS" ToRole="LABORATORIOS" />
+          <NavigationProperty Name="LOTES" Relationship="Self.FK__LOTES__IdProduct__571DF1D5" FromRole="PRODUCTOS" ToRole="LOTES" />
+        </EntityType>
+        <EntityType Name="PROVEEDORES">
+          <Key>
+            <PropertyRef Name="IdProveedor" />
+          </Key>
+          <Property Name="IdProveedor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Documento" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="RazonSocial" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Correo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Telefono" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Estado" Type="Boolean" />
+          <NavigationProperty Name="COMPRAS" Relationship="Self.FK__COMPRAS__IdProve__5CD6CB2B" FromRole="PROVEEDORES" ToRole="COMPRAS" />
+        </EntityType>
+        <EntityType Name="ROLES">
+          <Key>
+            <PropertyRef Name="IdRol" />
+          </Key>
+          <Property Name="IdRol" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="PERMISOS" Relationship="Self.FK__PERMISOS__IdRol__3F466844" FromRole="ROLES" ToRole="PERMISOS" />
+          <NavigationProperty Name="USUARIOS" Relationship="Self.FK__USUARIOS__IdRol__3B75D760" FromRole="ROLES" ToRole="USUARIOS" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="USUARIOS">
+          <Key>
+            <PropertyRef Name="IdUsuario" />
+          </Key>
+          <Property Name="IdUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdRol" Type="Int32" />
+          <Property Name="Documento" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NombreCompleto" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Correo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Clave" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Estado" Type="Boolean" />
+          <NavigationProperty Name="COMPRAS" Relationship="Self.FK__COMPRAS__IdUsuar__5BE2A6F2" FromRole="USUARIOS" ToRole="COMPRAS" />
+          <NavigationProperty Name="DEVOLUCIONES_CLIENTES" Relationship="Self.FK__DEVOLUCIO__IdUsu__6E01572D" FromRole="USUARIOS" ToRole="DEVOLUCIONES_CLIENTES" />
+          <NavigationProperty Name="DEVOLUCIONES_PROVEEDORES" Relationship="Self.FK__DEVOLUCIO__IdUsu__76969D2E" FromRole="USUARIOS" ToRole="DEVOLUCIONES_PROVEEDORES" />
+          <NavigationProperty Name="ROLES" Relationship="Self.FK__USUARIOS__IdRol__3B75D760" FromRole="USUARIOS" ToRole="ROLES" />
+          <NavigationProperty Name="VENTAS" Relationship="Self.FK__VENTAS__IdUsuari__6477ECF3" FromRole="USUARIOS" ToRole="VENTAS" />
+        </EntityType>
+        <EntityType Name="VENTAS">
+          <Key>
+            <PropertyRef Name="IdVenta" />
+          </Key>
+          <Property Name="IdVenta" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdUsuario" Type="Int32" />
+          <Property Name="IdCliente" Type="Int32" />
+          <Property Name="TipoDocumento" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NumeroDocumento" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MontoTotal" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="MontoPago" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="MontoCambio" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="FechaRegistro" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="CLIENTES" Relationship="Self.FK__VENTAS__IdClient__656C112C" FromRole="VENTAS" ToRole="CLIENTES" />
+          <NavigationProperty Name="DETALLE_VENTAS" Relationship="Self.FK__DETALLE_V__IdVen__693CA210" FromRole="VENTAS" ToRole="DETALLE_VENTAS" />
+          <NavigationProperty Name="DEVOLUCIONES_CLIENTES" Relationship="Self.FK__DEVOLUCIO__IdVen__6D0D32F4" FromRole="VENTAS" ToRole="DEVOLUCIONES_CLIENTES" />
+          <NavigationProperty Name="USUARIOS" Relationship="Self.FK__VENTAS__IdUsuari__6477ECF3" FromRole="VENTAS" ToRole="USUARIOS" />
+        </EntityType>
+        <Association Name="FK__PRODUCTOS__IdCat__5070F446">
+          <End Role="CATEGORIAS" Type="Self.CATEGORIAS" Multiplicity="0..1" />
+          <End Role="PRODUCTOS" Type="Self.PRODUCTOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CATEGORIAS">
+              <PropertyRef Name="IdCategoria" />
+            </Principal>
+            <Dependent Role="PRODUCTOS">
+              <PropertyRef Name="IdCategoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__VENTAS__IdClient__656C112C">
+          <End Role="CLIENTES" Type="Self.CLIENTES" Multiplicity="0..1" />
+          <End Role="VENTAS" Type="Self.VENTAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CLIENTES">
+              <PropertyRef Name="IdCliente" />
+            </Principal>
+            <Dependent Role="VENTAS">
+              <PropertyRef Name="IdCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__COMPRAS__IdProve__5CD6CB2B">
+          <End Role="PROVEEDORES" Type="Self.PROVEEDORES" Multiplicity="0..1" />
+          <End Role="COMPRAS" Type="Self.COMPRAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PROVEEDORES">
+              <PropertyRef Name="IdProveedor" />
+            </Principal>
+            <Dependent Role="COMPRAS">
+              <PropertyRef Name="IdProveedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__COMPRAS__IdUsuar__5BE2A6F2">
+          <End Role="USUARIOS" Type="Self.USUARIOS" Multiplicity="0..1" />
+          <End Role="COMPRAS" Type="Self.COMPRAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USUARIOS">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="COMPRAS">
+              <PropertyRef Name="IdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DETALLE_C__IdCom__60A75C0F">
+          <End Role="COMPRAS" Type="Self.COMPRAS" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="DETALLE_COMPRAS" Type="Self.DETALLE_COMPRAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="COMPRAS">
+              <PropertyRef Name="IdCompra" />
+            </Principal>
+            <Dependent Role="DETALLE_COMPRAS">
+              <PropertyRef Name="IdCompra" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DEVOLUCIO__IdCom__75A278F5">
+          <End Role="COMPRAS" Type="Self.COMPRAS" Multiplicity="0..1" />
+          <End Role="DEVOLUCIONES_PROVEEDORES" Type="Self.DEVOLUCIONES_PROVEEDORES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="COMPRAS">
+              <PropertyRef Name="IdCompra" />
+            </Principal>
+            <Dependent Role="DEVOLUCIONES_PROVEEDORES">
+              <PropertyRef Name="IdCompra" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DETALLE_C__IdLot__619B8048">
+          <End Role="LOTES" Type="Self.LOTES" Multiplicity="0..1" />
+          <End Role="DETALLE_COMPRAS" Type="Self.DETALLE_COMPRAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LOTES">
+              <PropertyRef Name="IdLote" />
+            </Principal>
+            <Dependent Role="DETALLE_COMPRAS">
+              <PropertyRef Name="IdLote" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DETALLE_D__IdDev__71D1E811">
+          <End Role="DEVOLUCIONES_CLIENTES" Type="Self.DEVOLUCIONES_CLIENTES" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="DETALLE_DEVOLUCIONES_CLIENTES" Type="Self.DETALLE_DEVOLUCIONES_CLIENTES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DEVOLUCIONES_CLIENTES">
+              <PropertyRef Name="IdDevolucionCliente" />
+            </Principal>
+            <Dependent Role="DETALLE_DEVOLUCIONES_CLIENTES">
+              <PropertyRef Name="IdDevolucionCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DETALLE_D__IdLot__72C60C4A">
+          <End Role="LOTES" Type="Self.LOTES" Multiplicity="0..1" />
+          <End Role="DETALLE_DEVOLUCIONES_CLIENTES" Type="Self.DETALLE_DEVOLUCIONES_CLIENTES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LOTES">
+              <PropertyRef Name="IdLote" />
+            </Principal>
+            <Dependent Role="DETALLE_DEVOLUCIONES_CLIENTES">
+              <PropertyRef Name="IdLote" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DETALLE_D__IdDev__7A672E12">
+          <End Role="DEVOLUCIONES_PROVEEDORES" Type="Self.DEVOLUCIONES_PROVEEDORES" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="DETALLE_DEVOLUCIONES_PROVEEDORES" Type="Self.DETALLE_DEVOLUCIONES_PROVEEDORES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DEVOLUCIONES_PROVEEDORES">
+              <PropertyRef Name="IdDevolucionProveedor" />
+            </Principal>
+            <Dependent Role="DETALLE_DEVOLUCIONES_PROVEEDORES">
+              <PropertyRef Name="IdDevolucionProveedor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DETALLE_D__IdLot__7B5B524B">
+          <End Role="LOTES" Type="Self.LOTES" Multiplicity="0..1" />
+          <End Role="DETALLE_DEVOLUCIONES_PROVEEDORES" Type="Self.DETALLE_DEVOLUCIONES_PROVEEDORES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LOTES">
+              <PropertyRef Name="IdLote" />
+            </Principal>
+            <Dependent Role="DETALLE_DEVOLUCIONES_PROVEEDORES">
+              <PropertyRef Name="IdLote" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DETALLE_V__IdLot__6A30C649">
+          <End Role="LOTES" Type="Self.LOTES" Multiplicity="0..1" />
+          <End Role="DETALLE_VENTAS" Type="Self.DETALLE_VENTAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LOTES">
+              <PropertyRef Name="IdLote" />
+            </Principal>
+            <Dependent Role="DETALLE_VENTAS">
+              <PropertyRef Name="IdLote" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DETALLE_V__IdVen__693CA210">
+          <End Role="VENTAS" Type="Self.VENTAS" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="DETALLE_VENTAS" Type="Self.DETALLE_VENTAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VENTAS">
+              <PropertyRef Name="IdVenta" />
+            </Principal>
+            <Dependent Role="DETALLE_VENTAS">
+              <PropertyRef Name="IdVenta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DEVOLUCIO__IdUsu__6E01572D">
+          <End Role="USUARIOS" Type="Self.USUARIOS" Multiplicity="0..1" />
+          <End Role="DEVOLUCIONES_CLIENTES" Type="Self.DEVOLUCIONES_CLIENTES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USUARIOS">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="DEVOLUCIONES_CLIENTES">
+              <PropertyRef Name="IdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DEVOLUCIO__IdVen__6D0D32F4">
+          <End Role="VENTAS" Type="Self.VENTAS" Multiplicity="0..1" />
+          <End Role="DEVOLUCIONES_CLIENTES" Type="Self.DEVOLUCIONES_CLIENTES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VENTAS">
+              <PropertyRef Name="IdVenta" />
+            </Principal>
+            <Dependent Role="DEVOLUCIONES_CLIENTES">
+              <PropertyRef Name="IdVenta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DEVOLUCIO__IdUsu__76969D2E">
+          <End Role="USUARIOS" Type="Self.USUARIOS" Multiplicity="0..1" />
+          <End Role="DEVOLUCIONES_PROVEEDORES" Type="Self.DEVOLUCIONES_PROVEEDORES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USUARIOS">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="DEVOLUCIONES_PROVEEDORES">
+              <PropertyRef Name="IdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PRODUCTOS__IdLab__5165187F">
+          <End Role="LABORATORIOS" Type="Self.LABORATORIOS" Multiplicity="0..1" />
+          <End Role="PRODUCTOS" Type="Self.PRODUCTOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LABORATORIOS">
+              <PropertyRef Name="IdLaboratorio" />
+            </Principal>
+            <Dependent Role="PRODUCTOS">
+              <PropertyRef Name="IdLaboratorio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__LOTES__IdProduct__571DF1D5">
+          <End Role="PRODUCTOS" Type="Self.PRODUCTOS" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="LOTES" Type="Self.LOTES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PRODUCTOS">
+              <PropertyRef Name="IdProducto" />
+            </Principal>
+            <Dependent Role="LOTES">
+              <PropertyRef Name="IdProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PERMISOS__IdRol__3F466844">
+          <End Role="ROLES" Type="Self.ROLES" Multiplicity="0..1" />
+          <End Role="PERMISOS" Type="Self.PERMISOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ROLES">
+              <PropertyRef Name="IdRol" />
+            </Principal>
+            <Dependent Role="PERMISOS">
+              <PropertyRef Name="IdRol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__USUARIOS__IdRol__3B75D760">
+          <End Role="ROLES" Type="Self.ROLES" Multiplicity="0..1" />
+          <End Role="USUARIOS" Type="Self.USUARIOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ROLES">
+              <PropertyRef Name="IdRol" />
+            </Principal>
+            <Dependent Role="USUARIOS">
+              <PropertyRef Name="IdRol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__VENTAS__IdUsuari__6477ECF3">
+          <End Role="USUARIOS" Type="Self.USUARIOS" Multiplicity="0..1" />
+          <End Role="VENTAS" Type="Self.VENTAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USUARIOS">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="VENTAS">
+              <PropertyRef Name="IdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DistribuidoraDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CATEGORIAS" EntityType="Self.CATEGORIAS" />
+          <EntitySet Name="CLIENTES" EntityType="Self.CLIENTES" />
+          <EntitySet Name="COMPRAS" EntityType="Self.COMPRAS" />
+          <EntitySet Name="DETALLE_COMPRAS" EntityType="Self.DETALLE_COMPRAS" />
+          <EntitySet Name="DETALLE_DEVOLUCIONES_CLIENTES" EntityType="Self.DETALLE_DEVOLUCIONES_CLIENTES" />
+          <EntitySet Name="DETALLE_DEVOLUCIONES_PROVEEDORES" EntityType="Self.DETALLE_DEVOLUCIONES_PROVEEDORES" />
+          <EntitySet Name="DETALLE_VENTAS" EntityType="Self.DETALLE_VENTAS" />
+          <EntitySet Name="DEVOLUCIONES_CLIENTES" EntityType="Self.DEVOLUCIONES_CLIENTES" />
+          <EntitySet Name="DEVOLUCIONES_PROVEEDORES" EntityType="Self.DEVOLUCIONES_PROVEEDORES" />
+          <EntitySet Name="LABORATORIOS" EntityType="Self.LABORATORIOS" />
+          <EntitySet Name="LOTES" EntityType="Self.LOTES" />
+          <EntitySet Name="PERMISOS" EntityType="Self.PERMISOS" />
+          <EntitySet Name="PRODUCTOS" EntityType="Self.PRODUCTOS" />
+          <EntitySet Name="PROVEEDORES" EntityType="Self.PROVEEDORES" />
+          <EntitySet Name="ROLES" EntityType="Self.ROLES" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="USUARIOS" EntityType="Self.USUARIOS" />
+          <EntitySet Name="VENTAS" EntityType="Self.VENTAS" />
+          <AssociationSet Name="FK__PRODUCTOS__IdCat__5070F446" Association="Self.FK__PRODUCTOS__IdCat__5070F446">
+            <End Role="CATEGORIAS" EntitySet="CATEGORIAS" />
+            <End Role="PRODUCTOS" EntitySet="PRODUCTOS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__VENTAS__IdClient__656C112C" Association="Self.FK__VENTAS__IdClient__656C112C">
+            <End Role="CLIENTES" EntitySet="CLIENTES" />
+            <End Role="VENTAS" EntitySet="VENTAS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__COMPRAS__IdProve__5CD6CB2B" Association="Self.FK__COMPRAS__IdProve__5CD6CB2B">
+            <End Role="PROVEEDORES" EntitySet="PROVEEDORES" />
+            <End Role="COMPRAS" EntitySet="COMPRAS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__COMPRAS__IdUsuar__5BE2A6F2" Association="Self.FK__COMPRAS__IdUsuar__5BE2A6F2">
+            <End Role="USUARIOS" EntitySet="USUARIOS" />
+            <End Role="COMPRAS" EntitySet="COMPRAS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DETALLE_C__IdCom__60A75C0F" Association="Self.FK__DETALLE_C__IdCom__60A75C0F">
+            <End Role="COMPRAS" EntitySet="COMPRAS" />
+            <End Role="DETALLE_COMPRAS" EntitySet="DETALLE_COMPRAS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DEVOLUCIO__IdCom__75A278F5" Association="Self.FK__DEVOLUCIO__IdCom__75A278F5">
+            <End Role="COMPRAS" EntitySet="COMPRAS" />
+            <End Role="DEVOLUCIONES_PROVEEDORES" EntitySet="DEVOLUCIONES_PROVEEDORES" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DETALLE_C__IdLot__619B8048" Association="Self.FK__DETALLE_C__IdLot__619B8048">
+            <End Role="LOTES" EntitySet="LOTES" />
+            <End Role="DETALLE_COMPRAS" EntitySet="DETALLE_COMPRAS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DETALLE_D__IdDev__71D1E811" Association="Self.FK__DETALLE_D__IdDev__71D1E811">
+            <End Role="DEVOLUCIONES_CLIENTES" EntitySet="DEVOLUCIONES_CLIENTES" />
+            <End Role="DETALLE_DEVOLUCIONES_CLIENTES" EntitySet="DETALLE_DEVOLUCIONES_CLIENTES" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DETALLE_D__IdLot__72C60C4A" Association="Self.FK__DETALLE_D__IdLot__72C60C4A">
+            <End Role="LOTES" EntitySet="LOTES" />
+            <End Role="DETALLE_DEVOLUCIONES_CLIENTES" EntitySet="DETALLE_DEVOLUCIONES_CLIENTES" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DETALLE_D__IdDev__7A672E12" Association="Self.FK__DETALLE_D__IdDev__7A672E12">
+            <End Role="DEVOLUCIONES_PROVEEDORES" EntitySet="DEVOLUCIONES_PROVEEDORES" />
+            <End Role="DETALLE_DEVOLUCIONES_PROVEEDORES" EntitySet="DETALLE_DEVOLUCIONES_PROVEEDORES" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DETALLE_D__IdLot__7B5B524B" Association="Self.FK__DETALLE_D__IdLot__7B5B524B">
+            <End Role="LOTES" EntitySet="LOTES" />
+            <End Role="DETALLE_DEVOLUCIONES_PROVEEDORES" EntitySet="DETALLE_DEVOLUCIONES_PROVEEDORES" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DETALLE_V__IdLot__6A30C649" Association="Self.FK__DETALLE_V__IdLot__6A30C649">
+            <End Role="LOTES" EntitySet="LOTES" />
+            <End Role="DETALLE_VENTAS" EntitySet="DETALLE_VENTAS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DETALLE_V__IdVen__693CA210" Association="Self.FK__DETALLE_V__IdVen__693CA210">
+            <End Role="VENTAS" EntitySet="VENTAS" />
+            <End Role="DETALLE_VENTAS" EntitySet="DETALLE_VENTAS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DEVOLUCIO__IdUsu__6E01572D" Association="Self.FK__DEVOLUCIO__IdUsu__6E01572D">
+            <End Role="USUARIOS" EntitySet="USUARIOS" />
+            <End Role="DEVOLUCIONES_CLIENTES" EntitySet="DEVOLUCIONES_CLIENTES" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DEVOLUCIO__IdVen__6D0D32F4" Association="Self.FK__DEVOLUCIO__IdVen__6D0D32F4">
+            <End Role="VENTAS" EntitySet="VENTAS" />
+            <End Role="DEVOLUCIONES_CLIENTES" EntitySet="DEVOLUCIONES_CLIENTES" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DEVOLUCIO__IdUsu__76969D2E" Association="Self.FK__DEVOLUCIO__IdUsu__76969D2E">
+            <End Role="USUARIOS" EntitySet="USUARIOS" />
+            <End Role="DEVOLUCIONES_PROVEEDORES" EntitySet="DEVOLUCIONES_PROVEEDORES" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PRODUCTOS__IdLab__5165187F" Association="Self.FK__PRODUCTOS__IdLab__5165187F">
+            <End Role="LABORATORIOS" EntitySet="LABORATORIOS" />
+            <End Role="PRODUCTOS" EntitySet="PRODUCTOS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__LOTES__IdProduct__571DF1D5" Association="Self.FK__LOTES__IdProduct__571DF1D5">
+            <End Role="PRODUCTOS" EntitySet="PRODUCTOS" />
+            <End Role="LOTES" EntitySet="LOTES" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PERMISOS__IdRol__3F466844" Association="Self.FK__PERMISOS__IdRol__3F466844">
+            <End Role="ROLES" EntitySet="ROLES" />
+            <End Role="PERMISOS" EntitySet="PERMISOS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__USUARIOS__IdRol__3B75D760" Association="Self.FK__USUARIOS__IdRol__3B75D760">
+            <End Role="ROLES" EntitySet="ROLES" />
+            <End Role="USUARIOS" EntitySet="USUARIOS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__VENTAS__IdUsuari__6477ECF3" Association="Self.FK__VENTAS__IdUsuari__6477ECF3">
+            <End Role="USUARIOS" EntitySet="USUARIOS" />
+            <End Role="VENTAS" EntitySet="VENTAS" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DistribuidoraDBModelStoreContainer" CdmEntityContainer="DistribuidoraDBEntities">
+          <EntitySetMapping Name="CATEGORIAS">
+            <EntityTypeMapping TypeName="DistribuidoraDBModel.CATEGORIAS">
+              <MappingFragment StoreEntitySet="CATEGORIAS">
+                <ScalarProperty Name="IdCategoria" ColumnName="IdCategoria" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CLIENTES">
+            <EntityTypeMapping TypeName="DistribuidoraDBModel.CLIENTES">
+              <MappingFragment StoreEntitySet="CLIENTES">
+                <ScalarProperty Name="IdCliente" ColumnName="IdCliente" />
+                <ScalarProperty Name="Documento" ColumnName="Documento" />
+                <ScalarProperty Name="RazonSocial" ColumnName="RazonSocial" />
+                <ScalarProperty Name="NombreComercial" ColumnName="NombreComercial" />
+                <ScalarProperty Name="Correo" ColumnName="Correo" />
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+                <ScalarProperty Name="DireccionEnvio" ColumnName="DireccionEnvio" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="COMPRAS">
+            <EntityTypeMapping TypeName="DistribuidoraDBModel.COMPRAS">
+              <MappingFragment StoreEntitySet="COMPRAS">
+                <ScalarProperty Name="IdCompra" ColumnName="IdCompra" />
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="IdProveedor" ColumnName="IdProveedor" />
+                <ScalarProperty Name="TipoDocumento" ColumnName="TipoDocumento" />
+                <ScalarProperty Name="NumeroDocumento" ColumnName="NumeroDocumento" />
+                <ScalarProperty Name="MontoTotal" ColumnName="MontoTotal" />
+                <ScalarProperty Name="FechaRegistro" ColumnName="FechaRegistro" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DETALLE_COMPRAS">
+            <EntityTypeMapping TypeName="DistribuidoraDBModel.DETALLE_COMPRAS">
+              <MappingFragment StoreEntitySet="DETALLE_COMPRAS">
+                <ScalarProperty Name="IdDetalleCompra" ColumnName="IdDetalleCompra" />
+                <ScalarProperty Name="IdCompra" ColumnName="IdCompra" />
+                <ScalarProperty Name="IdLote" ColumnName="IdLote" />
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+                <ScalarProperty Name="PrecioCompraUnitario" ColumnName="PrecioCompraUnitario" />
+                <ScalarProperty Name="MontoTotal" ColumnName="MontoTotal" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DETALLE_DEVOLUCIONES_CLIENTES">
+            <EntityTypeMapping TypeName="DistribuidoraDBModel.DETALLE_DEVOLUCIONES_CLIENTES">
+              <MappingFragment StoreEntitySet="DETALLE_DEVOLUCIONES_CLIENTES">
+                <ScalarProperty Name="IdDetalleDevolucionCliente" ColumnName="IdDetalleDevolucionCliente" />
+                <ScalarProperty Name="IdDevolucionCliente" ColumnName="IdDevolucionCliente" />
+                <ScalarProperty Name="IdLote" ColumnName="IdLote" />
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+                <ScalarProperty Name="MontoUnitario" ColumnName="MontoUnitario" />
+                <ScalarProperty Name="SubTotal" ColumnName="SubTotal" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DETALLE_DEVOLUCIONES_PROVEEDORES">
+            <EntityTypeMapping TypeName="DistribuidoraDBModel.DETALLE_DEVOLUCIONES_PROVEEDORES">
+              <MappingFragment StoreEntitySet="DETALLE_DEVOLUCIONES_PROVEEDORES">
+                <ScalarProperty Name="IdDetalleDevolucionProveedor" ColumnName="IdDetalleDevolucionProveedor" />
+                <ScalarProperty Name="IdDevolucionProveedor" ColumnName="IdDevolucionProveedor" />
+                <ScalarProperty Name="IdLote" ColumnName="IdLote" />
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+                <ScalarProperty Name="MontoUnitario" ColumnName="MontoUnitario" />
+                <ScalarProperty Name="SubTotal" ColumnName="SubTotal" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DETALLE_VENTAS">
+            <EntityTypeMapping TypeName="DistribuidoraDBModel.DETALLE_VENTAS">
+              <MappingFragment StoreEntitySet="DETALLE_VENTAS">
+                <ScalarProperty Name="IdDetalleVenta" ColumnName="IdDetalleVenta" />
+                <ScalarProperty Name="IdVenta" ColumnName="IdVenta" />
+                <ScalarProperty Name="IdLote" ColumnName="IdLote" />
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+                <ScalarProperty Name="PrecioVentaUnitario" ColumnName="PrecioVentaUnitario" />
+                <ScalarProperty Name="SubTotal" ColumnName="SubTotal" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DEVOLUCIONES_CLIENTES">
+            <EntityTypeMapping TypeName="DistribuidoraDBModel.DEVOLUCIONES_CLIENTES">
+              <MappingFragment StoreEntitySet="DEVOLUCIONES_CLIENTES">
+                <ScalarProperty Name="IdDevolucionCliente" ColumnName="IdDevolucionCliente" />
+                <ScalarProperty Name="IdVenta" ColumnName="IdVenta" />
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="Motivo" ColumnName="Motivo" />
+                <ScalarProperty Name="MontoTotalDevuelto" ColumnName="MontoTotalDevuelto" />
+                <ScalarProperty Name="FechaRegistro" ColumnName="FechaRegistro" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DEVOLUCIONES_PROVEEDORES">
+            <EntityTypeMapping TypeName="DistribuidoraDBModel.DEVOLUCIONES_PROVEEDORES">
+              <MappingFragment StoreEntitySet="DEVOLUCIONES_PROVEEDORES">
+                <ScalarProperty Name="IdDevolucionProveedor" ColumnName="IdDevolucionProveedor" />
+                <ScalarProperty Name="IdCompra" ColumnName="IdCompra" />
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="Motivo" ColumnName="Motivo" />
+                <ScalarProperty Name="MontoTotalDevuelto" ColumnName="MontoTotalDevuelto" />
+                <ScalarProperty Name="FechaRegistro" ColumnName="FechaRegistro" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LABORATORIOS">
+            <EntityTypeMapping TypeName="DistribuidoraDBModel.LABORATORIOS">
+              <MappingFragment StoreEntitySet="LABORATORIOS">
+                <ScalarProperty Name="IdLaboratorio" ColumnName="IdLaboratorio" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LOTES">
+            <EntityTypeMapping TypeName="DistribuidoraDBModel.LOTES">
+              <MappingFragment StoreEntitySet="LOTES">
+                <ScalarProperty Name="IdLote" ColumnName="IdLote" />
+                <ScalarProperty Name="IdProducto" ColumnName="IdProducto" />
+                <ScalarProperty Name="NumeroLote" ColumnName="NumeroLote" />
+                <ScalarProperty Name="FechaVencimiento" ColumnName="FechaVencimiento" />
+                <ScalarProperty Name="Stock" ColumnName="Stock" />
+                <ScalarProperty Name="PrecioCompra" ColumnName="PrecioCompra" />
+                <ScalarProperty Name="PrecioVenta" ColumnName="PrecioVenta" />
+                <ScalarProperty Name="UbicacionAlmacen" ColumnName="UbicacionAlmacen" />
+                <ScalarProperty Name="FechaRegistro" ColumnName="FechaRegistro" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PERMISOS">
+            <EntityTypeMapping TypeName="DistribuidoraDBModel.PERMISOS">
+              <MappingFragment StoreEntitySet="PERMISOS">
+                <ScalarProperty Name="IdPermiso" ColumnName="IdPermiso" />
+                <ScalarProperty Name="IdRol" ColumnName="IdRol" />
+                <ScalarProperty Name="NombreMenu" ColumnName="NombreMenu" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PRODUCTOS">
+            <EntityTypeMapping TypeName="DistribuidoraDBModel.PRODUCTOS">
+              <MappingFragment StoreEntitySet="PRODUCTOS">
+                <ScalarProperty Name="IdProducto" ColumnName="IdProducto" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="IdCategoria" ColumnName="IdCategoria" />
+                <ScalarProperty Name="IdLaboratorio" ColumnName="IdLaboratorio" />
+                <ScalarProperty Name="RequiereReceta" ColumnName="RequiereReceta" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PROVEEDORES">
+            <EntityTypeMapping TypeName="DistribuidoraDBModel.PROVEEDORES">
+              <MappingFragment StoreEntitySet="PROVEEDORES">
+                <ScalarProperty Name="IdProveedor" ColumnName="IdProveedor" />
+                <ScalarProperty Name="Documento" ColumnName="Documento" />
+                <ScalarProperty Name="RazonSocial" ColumnName="RazonSocial" />
+                <ScalarProperty Name="Correo" ColumnName="Correo" />
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ROLES">
+            <EntityTypeMapping TypeName="DistribuidoraDBModel.ROLES">
+              <MappingFragment StoreEntitySet="ROLES">
+                <ScalarProperty Name="IdRol" ColumnName="IdRol" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="DistribuidoraDBModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="USUARIOS">
+            <EntityTypeMapping TypeName="DistribuidoraDBModel.USUARIOS">
+              <MappingFragment StoreEntitySet="USUARIOS">
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="IdRol" ColumnName="IdRol" />
+                <ScalarProperty Name="Documento" ColumnName="Documento" />
+                <ScalarProperty Name="NombreCompleto" ColumnName="NombreCompleto" />
+                <ScalarProperty Name="Correo" ColumnName="Correo" />
+                <ScalarProperty Name="Clave" ColumnName="Clave" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VENTAS">
+            <EntityTypeMapping TypeName="DistribuidoraDBModel.VENTAS">
+              <MappingFragment StoreEntitySet="VENTAS">
+                <ScalarProperty Name="IdVenta" ColumnName="IdVenta" />
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="IdCliente" ColumnName="IdCliente" />
+                <ScalarProperty Name="TipoDocumento" ColumnName="TipoDocumento" />
+                <ScalarProperty Name="NumeroDocumento" ColumnName="NumeroDocumento" />
+                <ScalarProperty Name="MontoTotal" ColumnName="MontoTotal" />
+                <ScalarProperty Name="MontoPago" ColumnName="MontoPago" />
+                <ScalarProperty Name="MontoCambio" ColumnName="MontoCambio" />
+                <ScalarProperty Name="FechaRegistro" ColumnName="FechaRegistro" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
