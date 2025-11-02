@@ -5,8 +5,64 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CapaPresentación"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="DistribuidoraSYS - Dashboard" Height="768" Width="1366"
+        WindowStartupLocation="CenterScreen" WindowState="Maximized">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="240"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Border Grid.Column="0" Background="White" BorderBrush="#DDD" BorderThickness="0,0,1,0">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <StackPanel>
+                    <TextBlock Text="DistribuidoraSYS" FontSize="18" FontWeight="Bold" Margin="20" Foreground="#0078d4" TextAlignment="Center"/>
+
+                    <Button x:Name="BtnDashboard" Content="🏠 Dashboard" Margin="10,2" Click="BtnNavigate_Click" Tag="Vistas/DashboardPage.xaml" FontWeight="Medium" Padding="10,8"/>
+
+                    <TextBlock Text="🛒 Ventas" Foreground="#0078d4" FontWeight="Bold" Margin="20,15,20,5"/>
+                    <Button x:Name="BtnRegistrarVenta" Content="Registrar Venta" Margin="30,2,10,2" Click="BtnNavigate_Click" Tag="Vistas/RegistrarVentaPage.xaml"/>
+                    <Button x:Name="BtnHistorialVentas" Content="Historial de Ventas" Margin="30,2,10,2" Click="BtnNavigate_Click" Tag="Vistas/HistorialVentasPage.xaml"/>
+
+                    <TextBlock Text="📦 Compras" Foreground="#0078d4" FontWeight="Bold" Margin="20,15,20,5"/>
+                    <Button x:Name="BtnRegistrarCompra" Content="Registrar Compra" Margin="30,2,10,2" Click="BtnNavigate_Click" Tag="Vistas/RegistrarCompraPage.xaml"/>
+                    <Button x:Name="BtnHistorialCompras" Content="Historial de Compras" Margin="30,2,10,2" Click="BtnNavigate_Click" Tag="Vistas/HistorialComprasPage.xaml"/>
+
+                    <TextBlock Text="↩️ Devoluciones" Foreground="#0078d4" FontWeight="Bold" Margin="20,15,20,5"/>
+                    <Button x:Name="BtnDevClientes" Content="Dev. de Clientes" Margin="30,2,10,2" Click="BtnNavigate_Click" Tag="Vistas/DevolucionClientePage.xaml"/>
+                    <Button x:Name="BtnDevProveedores" Content="Dev. a Proveedor" Margin="30,2,10,2" Click="BtnNavigate_Click" Tag="Vistas/DevolucionProveedorPage.xaml"/>
+                    <Button x:Name="BtnHistDevClientes" Content="Historial Dev. Clientes" Margin="30,2,10,2" Click="BtnNavigate_Click" Tag="Vistas/HistorialDevClientePage.xaml"/>
+                    <Button x:Name="BtnHistDevProv" Content="Historial Dev. Proveedor" Margin="30,2,10,2" Click="BtnNavigate_Click" Tag="Vistas/HistorialDevProveedorPage.xaml"/>
+
+                    <TextBlock Text="🏪 Catálogos" Foreground="#0078d4" FontWeight="Bold" Margin="20,15,20,5"/>
+                    <Button x:Name="BtnClientes" Content="Clientes" Margin="30,2,10,2" Click="BtnNavigate_Click" Tag="Vistas/GestionClientesPage.xaml"/>
+                    <Button x:Name="BtnProveedores" Content="Proveedores" Margin="30,2,10,2" Click="BtnNavigate_Click" Tag="Vistas/GestionProveedoresPage.xaml"/>
+                    <Button x:Name="BtnLotes" Content="Inventario (Lotes)" Margin="30,2,10,2" Click="BtnNavigate_Click" Tag="Vistas/GestionLotesPage.xaml"/>
+
+                    <Separator Margin="10,15"/>
+
+                    <Button x:Name="BtnReportes" Content="📈 Reportes" Margin="10,2" Click="BtnNavigate_Click" Tag="Vistas/ReportesPage.xaml" FontWeight="Medium" Padding="10,8"/>
+                    <Button x:Name="BtnAdministracion" Content="⚙️ Administración" Margin="10,2" Click="BtnNavigate_Click" Tag="Vistas/AdministracionPage.xaml" FontWeight="Medium" Padding="10,8"/>
+
+                </StackPanel>
+            </ScrollViewer>
+        </Border>
+
+        <DockPanel Grid.Column="1" Background="#eef2f5">
+
+            <Border DockPanel.Dock="Top" Background="White" BorderBrush="#DDD" BorderThickness="0,0,0,1">
+                <Grid Margin="16,10">
+                    <TextBlock x:Name="TxtTituloPagina" Text="Dashboard" FontSize="18" FontWeight="Bold" VerticalAlignment="Center"/>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <TextBlock x:Name="txtUsuarioInfo" Text="Bienvenido, ..." VerticalAlignment="Center" Margin="0,0,16,0" FontWeight="Medium"/>
+                        <Button x:Name="BtnCerrarSesion" Content="Cerrar Sesión" Background="Transparent" Foreground="Red" FontWeight="Bold" Cursor="Hand" Click="BtnCerrarSesion_Click"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden" Margin="24"/>
+
+        </DockPanel>
+
     </Grid>
 </Window>
