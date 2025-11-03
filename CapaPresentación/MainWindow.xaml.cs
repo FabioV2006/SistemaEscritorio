@@ -39,7 +39,7 @@ namespace CapaPresentación
             // 4. Cargar la página de dashboard por defecto (si tiene permiso)
             if (BtnDashboard.Visibility == Visibility.Visible)
             {
-                // (Debes crear esta página en tu proyecto)
+                // Asegúrate de crear una Page "Vistas/DashboardPage.xaml"
                 MainFrame.Navigate(new Uri("Vistas/DashboardPage.xaml", UriKind.Relative));
                 TxtTituloPagina.Text = "Dashboard";
             }
@@ -49,16 +49,17 @@ namespace CapaPresentación
             }
         }
 
-        // Esta es la lógica de permisos basada en la BD
+        // ESTA ES LA LÓGICA DE PERMISOS BASADA EN EL ROL
         private void CargarPermisos()
         {
-            // 1. Obtener la lista de permisos desde la CapaNegocio
+            // 1. Obtener la lista de permisos para el rol del usuario desde la CapaNegocio
             _permisosUsuario = cn_permiso.Listar(_usuarioActual.IdRol.Value);
 
             // 2. Extraer solo los nombres de los menús
             var nombresMenu = _permisosUsuario.Select(p => p.NombreMenu).ToList();
 
             // 3. Ocultar TODOS los botones por defecto
+            //    Usamos el x:Name del StackPanel para iterar sus hijos
             foreach (var child in MenuStackPanel.Children)
             {
                 if (child is Button button) // Solo afecta a los Botones

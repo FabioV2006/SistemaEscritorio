@@ -6,34 +6,32 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using CapaDatos;
+
 namespace CapaPresentación
 {
     public partial class App : Application
     {
-        protected override void OnStartup(StartupEventArgs e)
+        private void Application_Startup(object sender, StartupEventArgs e)
         {
-            base.OnStartup(e);
-
             // 1. Crear y mostrar la ventana de Login de forma modal
             LoginWindow loginWindow = new LoginWindow();
-            // ShowDialog() la abre y espera a que se cierre
+
+            // ShowDialog() bloquea la ejecución hasta que se cierre
             bool? loginResult = loginWindow.ShowDialog();
 
             // 2. Comprobar si el login fue exitoso
-            //    (Pon tu breakpoint aquí)
             if (loginResult == true)
             {
-                // 3. Si fue exitoso, obtener el usuario validado
+                // 3. Login exitoso: obtener el usuario validado
                 USUARIOS usuarioLogueado = loginWindow.UsuarioLogueado;
 
-                // 4. Crear y mostrar la MainWindow, pasándole el usuario
+                // 4. Crear y mostrar la MainWindow con el usuario
                 MainWindow mainWindow = new MainWindow(usuarioLogueado);
                 mainWindow.Show();
             }
             else
             {
-                // 5. Si loginResult es 'false' o 'null' (el usuario cerró),
-                //    la aplicación simplemente termina.
+                // 5. Login cancelado o fallido: cerrar la aplicación
                 Application.Current.Shutdown();
             }
         }
