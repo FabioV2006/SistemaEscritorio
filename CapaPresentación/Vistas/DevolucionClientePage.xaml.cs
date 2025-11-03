@@ -19,11 +19,8 @@ using CapaNegocio;
 
 namespace CapaPresentación.Vistas
 {
-    // --- ViewModel interno para la grilla editable ---
-    // Implementa INotifyPropertyChanged para que el total se actualice en vivo
     public class DevolucionItemViewModel : INotifyPropertyChanged
     {
-        // Propiedades de la venta original (ReadOnly)
         public int IdDetalleVenta { get; set; }
         public int IdLote { get; set; }
         public string NombreProducto { get; set; }
@@ -31,14 +28,13 @@ namespace CapaPresentación.Vistas
         public int CantidadVendida { get; set; }
         public decimal PrecioUnitario { get; set; }
 
-        // Propiedades editables por el usuario
         private int _cantidadADevolver;
         public int CantidadADevolver
         {
             get { return _cantidadADevolver; }
             set
             {
-                if (value > CantidadVendida) // Validación
+                if (value > CantidadVendida)
                     _cantidadADevolver = CantidadVendida;
                 else if (value < 0)
                     _cantidadADevolver = 0;
@@ -46,13 +42,12 @@ namespace CapaPresentación.Vistas
                     _cantidadADevolver = value;
 
                 OnPropertyChanged(nameof(CantidadADevolver));
-                OnPropertyChanged(nameof(SubTotalDevolucion)); // Avisar que el subtotal cambió
+                OnPropertyChanged(nameof(SubTotalDevolucion));
             }
         }
 
         public string Motivo { get; set; }
 
-        // Propiedad calculada
         public decimal SubTotalDevolucion
         {
             get { return CantidadADevolver * PrecioUnitario; }
@@ -64,18 +59,15 @@ namespace CapaPresentación.Vistas
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
     }
-    // --- Fin del ViewModel ---
-
 
     public partial class DevolucionClientePage : Page
     {
         private CN_Venta cn_venta = new CN_Venta();
         private CN_DevolucionCliente cn_devolucion = new CN_DevolucionCliente();
 
-        private VENTAS ventaEncontrada; // Almacena la venta COMPLETA (con detalles)
+        private VENTAS ventaEncontrada;
         private USUARIOS _usuarioActual;
 
-        // Esta es la lista que se bindea a la grilla
         private ObservableCollection<DevolucionItemViewModel> itemsParaDevolver;
 
         public DevolucionClientePage()
@@ -91,60 +83,153 @@ namespace CapaPresentación.Vistas
             _usuarioActual = mainWindow.UsuarioActual;
         }
 
-        // --- ESTE ES EL NUEVO FLUJO DE BÚSQUEDA ---
         private void btnBuscarVenta_Click(object sender, RoutedEventArgs e)
         {
-            LimpiarFormulario();
-
-            // 1. ABRIR EL MODAL DE BÚSQUEDA
-            ModalBuscarVenta modal = new ModalBuscarVenta();
-            if (modal.ShowDialog() == true)
+            try
             {
-                // 2. OBTENER LA VENTA BÁSICA SELECCIONADA (SOLO TIENE Id, NroDoc, Cliente)
+                LimpiarFormulario();
+
+                // 1. Abrir el modal de búsqueda
+                ModalBuscarVenta modal = new ModalBuscarVenta();
+                if (modal.ShowDialog() != true)
+                {
+                    return; // Usuario canceló
+                }
+
+                // 2. Obtener la venta básica seleccionada
                 VENTAS ventaResumen = modal.VentaSeleccionada;
 
-                // 3. USAR EL NRO. DE DOCUMENTO PARA OBTENER LA VENTA COMPLETA
-                //    (Esto es crucial, ya que carga los DETALLE_VENTAS, LOTES y PRODUCTOS)
-                ventaEncontrada = cn_venta.ObtenerVentaParaDevolucion(ventaResumen.NumeroDocumento);
-
-                if (ventaEncontrada == null)
+                if (ventaResumen == null || string.IsNullOrEmpty(ventaResumen.NumeroDocumento))
                 {
-                    MessageBox.Show("Error al cargar los detalles completos de la venta seleccionada.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("No se seleccionó ninguna venta válida.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return;
                 }
 
-                // 4. LLENAR EL FORMULARIO (ahora sí se encontrará)
-                txtNroDocVenta.Text = ventaEncontrada.NumeroDocumento; // Rellenamos el campo
-                txtClienteVenta.Text = ventaEncontrada.CLIENTES.RazonSocial;
-                txtFechaVenta.Text = ventaEncontrada.FechaRegistro?.ToString("dd/MM/yyyy");
+                // 3. Mostrar mensaje de carga
+                txtNroDocVenta.Text = "Cargando...";
+                this.Cursor = System.Windows.Input.Cursors.Wait;
 
-                // 5. Llenar la grilla con los productos/lotes de esa venta
+                // 4. Obtener la venta completa con todos sus detalles
+                ventaEncontrada = cn_venta.ObtenerVentaParaDevolucion(ventaResumen.NumeroDocumento);
+
+                // 5. Validaciones exhaustivas
+                if (ventaEncontrada == null)
+                {
+                    MessageBox.Show(
+                        $"No se pudo cargar la venta con el número de documento: {ventaResumen.NumeroDocumento}\n\n" +
+                        "Posibles causas:\n" +
+                        "- La venta fue eliminada\n" +
+                        "- Error de conexión con la base de datos",
+                        "Error al Cargar Venta",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Error);
+                    return;
+                }
+
+                if (ventaEncontrada.DETALLE_VENTAS == null || ventaEncontrada.DETALLE_VENTAS.Count == 0)
+                {
+                    MessageBox.Show(
+                        $"La venta {ventaEncontrada.NumeroDocumento} no tiene productos asociados.\n\n" +
+                        "Esto puede indicar un problema con los datos de la venta.",
+                        "Venta Sin Detalles",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Warning);
+                    LimpiarFormulario();
+                    return;
+                }
+
+                if (ventaEncontrada.CLIENTES == null)
+                {
+                    MessageBox.Show(
+                        $"No se pudo cargar la información del cliente de la venta {ventaEncontrada.NumeroDocumento}",
+                        "Error de Datos",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Warning);
+                    LimpiarFormulario();
+                    return;
+                }
+
+                // 6. Llenar el formulario
+                txtNroDocVenta.Text = ventaEncontrada.NumeroDocumento;
+                txtClienteVenta.Text = ventaEncontrada.CLIENTES.RazonSocial;
+                txtFechaVenta.Text = ventaEncontrada.FechaRegistro?.ToString("dd/MM/yyyy HH:mm") ?? "N/A";
+
+                // 7. Llenar la grilla con validaciones por cada detalle
+                int detallesCargados = 0;
                 foreach (var detalle in ventaEncontrada.DETALLE_VENTAS)
                 {
+                    // Validar que el detalle tenga lote
+                    if (detalle.LOTES == null)
+                    {
+                        Console.WriteLine($"Advertencia: Detalle {detalle.IdDetalleVenta} sin lote asociado.");
+                        continue;
+                    }
+
+                    // Validar que el lote tenga producto
+                    if (detalle.LOTES.PRODUCTOS == null)
+                    {
+                        Console.WriteLine($"Advertencia: Lote {detalle.LOTES.IdLote} sin producto asociado.");
+                        continue;
+                    }
+
                     itemsParaDevolver.Add(new DevolucionItemViewModel
                     {
                         IdDetalleVenta = detalle.IdDetalleVenta,
                         IdLote = detalle.IdLote.Value,
-                        NombreProducto = detalle.LOTES.PRODUCTOS.Nombre,
-                        NumeroLote = detalle.LOTES.NumeroLote,
-                        CantidadVendida = detalle.Cantidad.Value,
-                        PrecioUnitario = detalle.PrecioVentaUnitario.Value,
-                        CantidadADevolver = 0, // Inicia en 0
+                        NombreProducto = detalle.LOTES.PRODUCTOS.Nombre ?? "Producto sin nombre",
+                        NumeroLote = detalle.LOTES.NumeroLote ?? "N/A",
+                        CantidadVendida = detalle.Cantidad ?? 0,
+                        PrecioUnitario = detalle.PrecioVentaUnitario ?? 0,
+                        CantidadADevolver = 0,
                         Motivo = ""
                     });
+
+                    detallesCargados++;
                 }
 
-                // Suscribirse al evento PropertyChanged de CADA item
+                if (detallesCargados == 0)
+                {
+                    MessageBox.Show(
+                        "No se pudieron cargar los productos de la venta.\n\n" +
+                        "Verifique que la venta tenga productos con lotes válidos.",
+                        "Sin Productos Válidos",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Warning);
+                    LimpiarFormulario();
+                    return;
+                }
+
+                // 8. Suscribirse a los cambios de cada item
                 foreach (var item in itemsParaDevolver)
                 {
                     item.PropertyChanged += Item_PropertyChanged;
                 }
 
-                ActualizarTotalDevolucion(); // Calcular total inicial (que es 0)
+                ActualizarTotalDevolucion();
+
+                MessageBox.Show(
+                    $"Venta cargada correctamente.\n" +
+                    $"Productos encontrados: {detallesCargados}",
+                    "Éxito",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    $"Error inesperado al buscar la venta:\n\n{ex.Message}\n\n" +
+                    $"Detalles técnicos:\n{ex.StackTrace}",
+                    "Error Crítico",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+                LimpiarFormulario();
+            }
+            finally
+            {
+                this.Cursor = System.Windows.Input.Cursors.Arrow;
             }
         }
 
-        // Este evento se dispara cada vez que el usuario cambia la "Cantidad a Devolver"
         private void Item_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == nameof(DevolucionItemViewModel.SubTotalDevolucion))
@@ -167,7 +252,6 @@ namespace CapaPresentación.Vistas
                 return;
             }
 
-            // 1. Filtrar solo los items que realmente se van a devolver
             var itemsADevolver = itemsParaDevolver.Where(i => i.CantidadADevolver > 0).ToList();
 
             if (itemsADevolver.Count == 0)
@@ -182,7 +266,6 @@ namespace CapaPresentación.Vistas
                 return;
             }
 
-            // 2. Crear el DataTable para la CapaNegocio
             DataTable dtDetalle = new DataTable();
             dtDetalle.Columns.Add("IdLote", typeof(int));
             dtDetalle.Columns.Add("Cantidad", typeof(int));
@@ -199,7 +282,6 @@ namespace CapaPresentación.Vistas
                 );
             }
 
-            // 3. Crear el objeto Devolucion
             DEVOLUCIONES_CLIENTES nuevaDevolucion = new DEVOLUCIONES_CLIENTES()
             {
                 IdVenta = ventaEncontrada.IdVenta,
@@ -209,7 +291,6 @@ namespace CapaPresentación.Vistas
                 FechaRegistro = DateTime.Now
             };
 
-            // 4. Llamar a la CapaNegocio
             string mensaje = string.Empty;
             int idDevGenerada = cn_devolucion.Registrar(nuevaDevolucion, dtDetalle, out mensaje);
 
