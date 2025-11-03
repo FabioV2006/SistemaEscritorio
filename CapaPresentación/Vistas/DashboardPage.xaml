@@ -5,11 +5,55 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:CapaPresentación.Vistas"
       mc:Ignorable="d" 
-      Title="DashboardPage">
-    
-    <Grid Background="White">
-        <Border CornerRadius="5" BorderBrush="#DDD" BorderThickness="1" Padding="15">
-            <TextBlock Text="BIENVENIDO AL DASHBOARD" FontSize="50" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        </Border>
+      d:DesignHeight="600" d:DesignWidth="1000"
+      Title="DashboardPage"
+      Loaded="Page_Loaded">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <UniformGrid Grid.Row="0" Columns="4" Rows="1" Margin="0,0,0,20">
+
+            <Border Background="White" CornerRadius="5" BorderBrush="#DDD" BorderThickness="1" Margin="10">
+                <StackPanel Margin="20">
+                    <TextBlock Text="VENTAS DEL MES" FontSize="14" Foreground="#555" FontWeight="Medium"/>
+                    <TextBlock x:Name="txtVentasMes" Text="S/ 0.00" FontSize="32" FontWeight="Bold" Foreground="#0078d4" Margin="0,10,0,0"/>
+                </StackPanel>
+            </Border>
+
+            <Border Background="White" CornerRadius="5" BorderBrush="#DDD" BorderThickness="1" Margin="10">
+                <StackPanel Margin="20">
+                    <TextBlock Text="CLIENTES ACTIVOS" FontSize="14" Foreground="#555" FontWeight="Medium"/>
+                    <TextBlock x:Name="txtClientesActivos" Text="0" FontSize="32" FontWeight="Bold" Foreground="#333" Margin="0,10,0,0"/>
+                </StackPanel>
+            </Border>
+
+            <Border Background="White" CornerRadius="5" BorderBrush="#DDD" BorderThickness="1" Margin="10">
+                <StackPanel Margin="20">
+                    <TextBlock Text="LOTES POR VENCER (90 DÍAS)" FontSize="14" Foreground="#555" FontWeight="Medium"/>
+                    <TextBlock x:Name="txtLotesVencer" Text="0" FontSize="32" FontWeight="Bold" Foreground="#d9534f" Margin="0,10,0,0"/>
+                </StackPanel>
+            </Border>
+
+            <Border Background="White" CornerRadius="5" BorderBrush="#DDD" BorderThickness="1" Margin="10">
+                <StackPanel Margin="20">
+                    <TextBlock Text="PRODUCTOS CON STOCK CRÍTICO" FontSize="14" Foreground="#555" FontWeight="Medium"/>
+                    <TextBlock x:Name="txtStockCritico" Text="0" FontSize="32" FontWeight="Bold" Foreground="#f0ad4e" Margin="0,10,0,0"/>
+                </StackPanel>
+            </Border>
+
+        </UniformGrid>
+
+        <Grid Grid.Row="1">
+            <TextBlock Text="[Área de Gráficos - Próximamente...]" 
+                       FontSize="20" 
+                       HorizontalAlignment="Center" 
+                       VerticalAlignment="Center" 
+                       Foreground="Gray"/>
+        </Grid>
+
     </Grid>
 </Page>

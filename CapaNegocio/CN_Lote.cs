@@ -38,5 +38,13 @@ namespace CapaNegocio
 
             return cd_lote.Editar(obj, out Mensaje);
         }
+        public List<LOTES> ListarLotesPorProducto(int idProducto)
+        {
+            if (idProducto == 0)
+            {
+                return new List<LOTES>();
+            }
+            return cd_lote.ListarLotesPorProducto(idProducto);
+        }
     }
 }

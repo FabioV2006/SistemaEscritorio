@@ -14,7 +14,7 @@ namespace CapaDatos
         {
             try
             {
-                // Usamos sintaxis de string para Include (EF6)
+                // Usamos la sintaxis de string de EF6 para .Include()
                 return db.PRODUCTOS
                          .Include("CATEGORIAS")
                          .Include("LABORATORIOS")
@@ -22,7 +22,7 @@ namespace CapaDatos
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine("Error en CD_Producto.Listar: " + ex.Message);
                 return new List<PRODUCTOS>();
             }
         }

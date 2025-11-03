@@ -55,5 +55,29 @@ namespace CapaDatos
                 return false;
             }
         }
+        // Esto busca todos los lotes con stock y no vencidos PARA UN PRODUCTO ESPECÍFICO
+        public List<LOTES> ListarLotesPorProducto(int idProducto)
+        {
+            try
+            {
+                DateTime fechaActual = DateTime.Now.Date;
+
+                // Traemos los lotes que SÍ podemos vender:
+                // 1. Pertenecen al IdProducto específico.
+                // 2. Tienen stock (> 0).
+                // 3. No están vencidos (FechaVencimiento > Hoy).
+                return db.LOTES
+                         .Where(l => l.IdProducto == idProducto &&
+                                     l.Stock > 0 &&
+                                     l.FechaVencimiento > fechaActual)
+                         .OrderBy(l => l.FechaVencimiento) // Importante: Muestra primero los que vencen antes
+                         .ToList();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error en CD_Lote.ListarLotesPorProducto: " + ex.Message);
+                return new List<LOTES>();
+            }
+        }
     }
 }

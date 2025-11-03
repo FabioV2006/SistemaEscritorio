@@ -22,7 +22,10 @@ namespace CapaPresentación
         private USUARIOS _usuarioActual;
         private CN_Permiso cn_permiso = new CN_Permiso();
         private List<PERMISOS> _permisosUsuario;
-
+        public USUARIOS UsuarioActual
+        {
+            get { return _usuarioActual; }
+        }
         // 1. El constructor ACEPTA el usuario que viene del Login
         public MainWindow(USUARIOS usuario)
         {

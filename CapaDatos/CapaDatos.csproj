@@ -58,12 +58,17 @@
     </Compile>
     <Compile Include="CD_Categoria.cs" />
     <Compile Include="CD_Cliente.cs" />
+    <Compile Include="CD_Compra.cs" />
+    <Compile Include="CD_Dashboard.cs" />
     <Compile Include="CD_Laboratorio.cs" />
     <Compile Include="CD_Lote.cs" />
     <Compile Include="CD_Permiso.cs" />
     <Compile Include="CD_Producto.cs" />
     <Compile Include="CD_Proveedor.cs" />
+    <Compile Include="CD_Reporte.cs" />
+    <Compile Include="CD_Rol.cs" />
     <Compile Include="CD_Usuario.cs" />
+    <Compile Include="CD_Venta.cs" />
     <Compile Include="CLIENTES.cs">
       <DependentUpon>EntityModel.tt</DependentUpon>
     </Compile>
