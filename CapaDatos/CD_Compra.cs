@@ -122,5 +122,25 @@ namespace CapaDatos
                 return new List<DETALLE_COMPRAS>();
             }
         }
+        public COMPRAS ObtenerCompraParaDevolucion(string numeroDocumento)
+        {
+            try
+            {
+                string docBuscado = numeroDocumento.Trim();
+
+                // Carga la compra y toda la info necesaria para la devolución
+                return db.COMPRAS
+                         .Include("PROVEEDORES")
+                         .Include("DETALLE_COMPRAS")
+                         .Include("DETALLE_COMPRAS.LOTES") // El detalle de la compra nos da el Lote
+                         .Include("DETALLE_COMPRAS.LOTES.PRODUCTOS") // El Lote nos da el Producto
+                         .FirstOrDefault(c => string.Equals(c.NumeroDocumento.Trim(), docBuscado, StringComparison.OrdinalIgnoreCase));
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error en CD_Compra.ObtenerCompraParaDevolucion: " + ex.Message);
+                return null;
+            }
+        }
     }
 }

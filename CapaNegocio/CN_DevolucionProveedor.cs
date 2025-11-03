@@ -8,17 +8,17 @@ using CapaDatos;
 
 namespace CapaNegocio
 {
-    public class CN_DevolucionCliente
+    public class CN_DevolucionProveedor
     {
-        private CD_DevolucionCliente cd_devolucion = new CD_DevolucionCliente();
+        private CD_DevolucionProveedor cd_devolucion = new CD_DevolucionProveedor();
 
-        public int Registrar(DEVOLUCIONES_CLIENTES obj, DataTable dtDetalle, out string Mensaje)
+        public int Registrar(DEVOLUCIONES_PROVEEDORES obj, DataTable dtDetalle, out string Mensaje)
         {
             Mensaje = string.Empty;
 
-            if (obj.IdVenta == null || obj.IdVenta == 0)
+            if (obj.IdCompra == null || obj.IdCompra == 0)
             {
-                Mensaje = "Debe seleccionar una venta válida.";
+                Mensaje = "Debe seleccionar una compra válida.";
                 return 0;
             }
             if (string.IsNullOrEmpty(obj.Motivo))
@@ -34,20 +34,19 @@ namespace CapaNegocio
 
             return cd_devolucion.Registrar(obj, dtDetalle, out Mensaje);
         }
-        public List<DEVOLUCIONES_CLIENTES> Listar()
+
+        public List<DEVOLUCIONES_PROVEEDORES> Listar()
         {
-            // Por ahora, solo pasamos la llamada.
             return cd_devolucion.Listar();
         }
 
-        public List<DETALLE_DEVOLUCIONES_CLIENTES> ObtenerDetalle(int idDevolucionCliente)
+        public List<DETALLE_DEVOLUCIONES_PROVEEDORES> ObtenerDetalle(int idDevolucionProveedor)
         {
-            if (idDevolucionCliente == 0)
+            if (idDevolucionProveedor == 0)
             {
-                return new List<DETALLE_DEVOLUCIONES_CLIENTES>();
+                return new List<DETALLE_DEVOLUCIONES_PROVEEDORES>();
             }
-            return cd_devolucion.ObtenerDetalle(idDevolucionCliente);
+            return cd_devolucion.ObtenerDetalle(idDevolucionProveedor);
         }
     }
-
 }

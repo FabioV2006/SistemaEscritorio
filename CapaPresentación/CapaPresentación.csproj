@@ -68,6 +68,9 @@
     <Compile Include="ModalBuscarCliente.xaml.cs">
       <DependentUpon>ModalBuscarCliente.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ModalBuscarCompra.xaml.cs">
+      <DependentUpon>ModalBuscarCompra.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ModalBuscarProducto.xaml.cs">
       <DependentUpon>ModalBuscarProducto.xaml</DependentUpon>
     </Compile>
@@ -85,6 +88,12 @@
     </Compile>
     <Compile Include="ModalDetalleCompra.xaml.cs">
       <DependentUpon>ModalDetalleCompra.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ModalDetalleDevCliente.xaml.cs">
+      <DependentUpon>ModalDetalleDevCliente.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ModalDetalleDevProveedor.xaml.cs">
+      <DependentUpon>ModalDetalleDevProveedor.xaml</DependentUpon>
     </Compile>
     <Compile Include="ModalDetalleVenta.xaml.cs">
       <DependentUpon>ModalDetalleVenta.xaml</DependentUpon>
@@ -119,6 +128,9 @@
     <Compile Include="Vistas\DevolucionClientePage.xaml.cs">
       <DependentUpon>DevolucionClientePage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Vistas\DevolucionProveedorPage.xaml.cs">
+      <DependentUpon>DevolucionProveedorPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Vistas\GestionClientesPage.xaml.cs">
       <DependentUpon>GestionClientesPage.xaml</DependentUpon>
     </Compile>
@@ -133,6 +145,12 @@
     </Compile>
     <Compile Include="Vistas\HistorialComprasPage.xaml.cs">
       <DependentUpon>HistorialComprasPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Vistas\HistorialDevClientePage.xaml.cs">
+      <DependentUpon>HistorialDevClientePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Vistas\HistorialDevProveedorPage.xaml.cs">
+      <DependentUpon>HistorialDevProveedorPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Vistas\HistorialVentasPage.xaml.cs">
       <DependentUpon>HistorialVentasPage.xaml</DependentUpon>
@@ -169,6 +187,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="ModalBuscarCompra.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ModalBuscarProducto.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -190,6 +212,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ModalDetalleCompra.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ModalDetalleDevCliente.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ModalDetalleDevProveedor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -237,6 +267,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Vistas\DevolucionProveedorPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Vistas\GestionClientesPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -254,6 +288,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Vistas\HistorialComprasPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Vistas\HistorialDevClientePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Vistas\HistorialDevProveedorPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

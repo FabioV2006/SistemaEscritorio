@@ -78,6 +78,45 @@ namespace CapaDatos
             }
         }
 
-        // (Aquí irán los métodos Listar y ObtenerDetalle para el Historial)
+        public List<DEVOLUCIONES_CLIENTES> Listar()
+        {
+            try
+            {
+                // Traemos las devoluciones e incluimos la data relacionada
+                // Devolucion -> Venta -> Cliente
+                // Devolucion -> Usuario
+                return db.DEVOLUCIONES_CLIENTES
+                         .Include("VENTAS")
+                         .Include("VENTAS.CLIENTES")
+                         .Include("USUARIOS")
+                         .OrderByDescending(d => d.FechaRegistro) // Mostrar las más nuevas primero
+                         .ToList();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error en CD_DevolucionCliente.Listar: " + ex.Message);
+                return new List<DEVOLUCIONES_CLIENTES>();
+            }
+        }
+
+        public List<DETALLE_DEVOLUCIONES_CLIENTES> ObtenerDetalle(int idDevolucionCliente)
+        {
+            try
+            {
+                // Traemos el detalle de una devolución específica.
+                // Esta es la consulta de TRAZABILIDAD:
+                // DetalleDev -> Lote -> Producto
+                return db.DETALLE_DEVOLUCIONES_CLIENTES
+                         .Include("LOTES")
+                         .Include("LOTES.PRODUCTOS")
+                         .Where(dd => dd.IdDevolucionCliente == idDevolucionCliente)
+                         .ToList();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error en CD_DevolucionCliente.ObtenerDetalle: " + ex.Message);
+                return new List<DETALLE_DEVOLUCIONES_CLIENTES>();
+            }
+        }
     }
 }

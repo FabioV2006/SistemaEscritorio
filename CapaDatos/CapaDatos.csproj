@@ -61,6 +61,7 @@
     <Compile Include="CD_Compra.cs" />
     <Compile Include="CD_Dashboard.cs" />
     <Compile Include="CD_DevolucionCliente.cs" />
+    <Compile Include="CD_DevolucionProveedor.cs" />
     <Compile Include="CD_Laboratorio.cs" />
     <Compile Include="CD_Lote.cs" />
     <Compile Include="CD_Permiso.cs" />
