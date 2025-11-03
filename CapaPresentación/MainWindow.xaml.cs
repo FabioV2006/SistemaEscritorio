@@ -82,6 +82,7 @@ namespace CapaPresentación
             if (nombresMenu.Contains("Clientes")) BtnClientes.Visibility = Visibility.Visible;
             if (nombresMenu.Contains("Proveedores")) BtnProveedores.Visibility = Visibility.Visible;
             if (nombresMenu.Contains("Inventario (Lotes)")) BtnLotes.Visibility = Visibility.Visible;
+            if (nombresMenu.Contains("Productos")) BtnProductos.Visibility = Visibility.Visible;
             if (nombresMenu.Contains("Reportes")) BtnReportes.Visibility = Visibility.Visible;
             if (nombresMenu.Contains("Administración")) BtnAdministracion.Visibility = Visibility.Visible;
         }

@@ -51,7 +51,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CN_Categoria.cs" />
+    <Compile Include="CN_Cliente.cs" />
+    <Compile Include="CN_Laboratorio.cs" />
+    <Compile Include="CN_Lote.cs" />
     <Compile Include="CN_Permiso.cs" />
+    <Compile Include="CN_Producto.cs" />
+    <Compile Include="CN_Proveedor.cs" />
     <Compile Include="CN_Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -65,8 +65,32 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ModalCliente.xaml.cs">
+      <DependentUpon>ModalCliente.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ModalLote.xaml.cs">
+      <DependentUpon>ModalLote.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ModalProducto.xaml.cs">
+      <DependentUpon>ModalProducto.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ModalProveedor.xaml.cs">
+      <DependentUpon>ModalProveedor.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Vistas\DashboardPage.xaml.cs">
       <DependentUpon>DashboardPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Vistas\GestionClientesPage.xaml.cs">
+      <DependentUpon>GestionClientesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Vistas\GestionLotesPage.xaml.cs">
+      <DependentUpon>GestionLotesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Vistas\GestionProductosPage.xaml.cs">
+      <DependentUpon>GestionProductosPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Vistas\GestionProveedoresPage.xaml.cs">
+      <DependentUpon>GestionProveedoresPage.xaml</DependentUpon>
     </Compile>
     <Page Include="LoginWindow.xaml">
       <SubType>Designer</SubType>
@@ -87,7 +111,39 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="ModalCliente.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ModalLote.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ModalProducto.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ModalProveedor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Vistas\DashboardPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Vistas\GestionClientesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Vistas\GestionLotesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Vistas\GestionProductosPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Vistas\GestionProveedoresPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

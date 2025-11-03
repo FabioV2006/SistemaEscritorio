@@ -39,6 +39,7 @@
                     <Button x:Name="BtnClientes" Content="Clientes" Margin="30,2,10,2" Click="BtnNavigate_Click" Tag="Vistas/GestionClientesPage.xaml"/>
                     <Button x:Name="BtnProveedores" Content="Proveedores" Margin="30,2,10,2" Click="BtnNavigate_Click" Tag="Vistas/GestionProveedoresPage.xaml"/>
                     <Button x:Name="BtnLotes" Content="Inventario (Lotes)" Margin="30,2,10,2" Click="BtnNavigate_Click" Tag="Vistas/GestionLotesPage.xaml"/>
+                    <Button x:Name="BtnProductos" Content="Productos" Margin="30,2,10,2" Click="BtnNavigate_Click" Tag="Vistas/GestionProductosPage.xaml"/>
 
                     <Separator Margin="10,15"/>
 
