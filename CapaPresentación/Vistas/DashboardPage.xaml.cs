@@ -14,10 +14,8 @@ using System.Windows.Shapes;
 
 namespace CapaPresentación.Vistas
 {
-    /// <summary>
-    /// Lógica de interacción para DashboardPage.xaml
-    /// </summary>
-    public partial class DashboardPage : Window
+    // Asegúrate de que herede de "Page", no de "UserControl"
+    public partial class DashboardPage : Page
     {
         public DashboardPage()
         {
