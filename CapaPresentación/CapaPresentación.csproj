@@ -65,6 +65,85 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ModalBuscarCliente.xaml.cs">
+      <DependentUpon>ModalBuscarCliente.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ModalBuscarProducto.xaml.cs">
+      <DependentUpon>ModalBuscarProducto.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ModalBuscarProveedor.xaml.cs">
+      <DependentUpon>ModalBuscarProveedor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ModalCategoria.xaml.cs">
+      <DependentUpon>ModalCategoria.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ModalCliente.xaml.cs">
+      <DependentUpon>ModalCliente.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ModalDetalleCompra.xaml.cs">
+      <DependentUpon>ModalDetalleCompra.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ModalDetalleVenta.xaml.cs">
+      <DependentUpon>ModalDetalleVenta.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ModalLaboratorio.xaml.cs">
+      <DependentUpon>ModalLaboratorio.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ModalLote.xaml.cs">
+      <DependentUpon>ModalLote.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ModalProducto.xaml.cs">
+      <DependentUpon>ModalProducto.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ModalProveedor.xaml.cs">
+      <DependentUpon>ModalProveedor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ModalReporteVentas.xaml.cs">
+      <DependentUpon>ModalReporteVentas.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ModalRol.xaml.cs">
+      <DependentUpon>ModalRol.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ModalUsuario.xaml.cs">
+      <DependentUpon>ModalUsuario.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Vistas\AdministracionPage.xaml.cs">
+      <DependentUpon>AdministracionPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Vistas\DashboardPage.xaml.cs">
+      <DependentUpon>DashboardPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Vistas\GestionClientesPage.xaml.cs">
+      <DependentUpon>GestionClientesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Vistas\GestionLotesPage.xaml.cs">
+      <DependentUpon>GestionLotesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Vistas\GestionProductosPage.xaml.cs">
+      <DependentUpon>GestionProductosPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Vistas\GestionProveedoresPage.xaml.cs">
+      <DependentUpon>GestionProveedoresPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Vistas\HistorialComprasPage.xaml.cs">
+      <DependentUpon>HistorialComprasPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Vistas\HistorialVentasPage.xaml.cs">
+      <DependentUpon>HistorialVentasPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Vistas\RegistrarCompraPage.xaml.cs">
+      <DependentUpon>RegistrarCompraPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Vistas\RegistrarVentaPage.xaml.cs">
+      <DependentUpon>RegistrarVentaPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Vistas\ReportesPage.xaml.cs">
+      <DependentUpon>ReportesPage.xaml</DependentUpon>
+    </Compile>
+    <Page Include="LoginWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -73,10 +152,113 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="LoginWindow.xaml.cs">
+      <DependentUpon>LoginWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="ModalBuscarCliente.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ModalBuscarProducto.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ModalBuscarProveedor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ModalCategoria.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ModalCliente.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ModalDetalleCompra.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ModalDetalleVenta.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ModalLaboratorio.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ModalLote.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ModalProducto.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ModalProveedor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ModalReporteVentas.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ModalRol.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ModalUsuario.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Vistas\AdministracionPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Vistas\DashboardPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Vistas\GestionClientesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Vistas\GestionLotesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Vistas\GestionProductosPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Vistas\GestionProveedoresPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Vistas\HistorialComprasPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Vistas\HistorialVentasPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Vistas\RegistrarCompraPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Vistas\RegistrarVentaPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Vistas\ReportesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -104,6 +286,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CapaDatos\CapaDatos.csproj">
+      <Project>{8806ba6a-524b-45c4-a88a-9c993a8e2335}</Project>
+      <Name>CapaDatos</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CapaNegocio\CapaNegocio.csproj">
+      <Project>{c279bec2-8b48-4787-b3fb-b43e799ea768}</Project>
+      <Name>CapaNegocio</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

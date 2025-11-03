@@ -1,0 +1,145 @@
+﻿<Page x:Class="CapaPresentación.Vistas.GestionClientesPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:CapaPresentación.Vistas"
+      mc:Ignorable="d" 
+      d:DesignHeight="600" d:DesignWidth="1000"
+      Title="GestionClientesPage"
+      Loaded="Page_Loaded">
+
+    <Page.Resources>
+        <Style x:Key="AccionButtonBase" TargetType="Button">
+            <Setter Property="Width" Value="28"/>
+            <Setter Property="Height" Value="28"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
+
+        <Style x:Key="EditButton" TargetType="Button" BasedOn="{StaticResource AccionButtonBase}">
+            <Setter Property="Content" Value="✏️"/>
+            <Setter Property="ToolTip" Value="Editar Cliente"/>
+            <Setter Property="Foreground" Value="Blue"/>
+        </Style>
+
+        <Style x:Key="StatusButton" TargetType="Button" BasedOn="{StaticResource AccionButtonBase}">
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
+    </Page.Resources>
+
+    <Grid>
+        <Border Background="White" CornerRadius="5" BorderBrush="#DDD" BorderThickness="1">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0" Margin="15">
+                    <TextBlock Text="Gestión de Clientes (Farmacias)" FontSize="18" FontWeight="Bold" VerticalAlignment="Center"/>
+                    <Button x:Name="btnNuevoCliente" Content="✚ Nuevo Cliente" 
+                            HorizontalAlignment="Right" 
+                            Padding="10,5" 
+                            Background="#0078d4" 
+                            Foreground="White" 
+                            FontWeight="Bold"
+                            Cursor="Hand"
+                            Click="btnNuevoCliente_Click"/>
+                </Grid>
+
+                <Border Grid.Row="1" Background="#f9f9f9" BorderBrush="#DDD" BorderThickness="0,1,0,1" Padding="10">
+                    <Grid>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                            <TextBlock Text="Filtrar por:" VerticalAlignment="Center" Margin="5"/>
+                            <ComboBox x:Name="cboFiltro" Width="150" Margin="5" Padding="5" SelectedIndex="0">
+                                <ComboBoxItem Content="Razón Social"/>
+                                <ComboBoxItem Content="Documento (RUC)"/>
+                            </ComboBox>
+                            <TextBox x:Name="txtBusqueda" Width="200" Margin="5" Padding="5"/>
+
+                            <TextBlock Text="Estado:" VerticalAlignment="Center" Margin="15,5,5,5"/>
+                            <ComboBox x:Name="cboEstado" Width="120" Margin="5" Padding="5" SelectedIndex="0">
+                                <ComboBoxItem Content="Todos"/>
+                                <ComboBoxItem Content="Activo"/>
+                                <ComboBoxItem Content="Inactivo"/>
+                            </ComboBox>
+                            <Button x:Name="btnBuscar" Content="🔍 Buscar" Margin="5" Padding="10,5" Click="btnBuscar_Click"/>
+                        </StackPanel>
+
+                        <Button x:Name="btnExportarExcel" Content="📄 Exportar a Excel" 
+                                HorizontalAlignment="Right" 
+                                Padding="10,5" 
+                                Background="#1D6F42" 
+                                Foreground="White"
+                                Cursor="Hand"
+                                Click="btnExportarExcel_Click"/>
+                    </Grid>
+                </Border>
+
+                <DataGrid Grid.Row="2" x:Name="dgClientes" AutoGenerateColumns="False" 
+                          CanUserAddRows="False" IsReadOnly="True" 
+                          HeadersVisibility="Column"
+                          Background="White"
+                          GridLinesVisibility="Vertical" VerticalGridLinesBrush="#DDD"
+                          HorizontalGridLinesBrush="#DDD">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Documento (RUC)" Binding="{Binding Documento}" Width="1.2*"/>
+                        <DataGridTextColumn Header="Razón Social" Binding="{Binding RazonSocial}" Width="2*"/>
+                        <DataGridTextColumn Header="Nombre Comercial" Binding="{Binding NombreComercial}" Width="1.5*"/>
+                        <DataGridTextColumn Header="Dirección Envío" Binding="{Binding DireccionEnvio}" Width="2.5*"/>
+                        <DataGridTextColumn Header="Teléfono" Binding="{Binding Telefono}" Width="1*"/>
+
+                        <DataGridTemplateColumn Header="Estado" Width="0.8*">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock x:Name="txtEstado" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold"/>
+                                    <DataTemplate.Triggers>
+                                        <DataTrigger Binding="{Binding Estado}" Value="True">
+                                            <Setter TargetName="txtEstado" Property="Text" Value="● Activo"/>
+                                            <Setter TargetName="txtEstado" Property="Foreground" Value="#5cb85c"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Estado}" Value="False">
+                                            <Setter TargetName="txtEstado" Property="Text" Value="● Inactivo"/>
+                                            <Setter TargetName="txtEstado" Property="Foreground" Value="#d9534f"/>
+                                        </DataTrigger>
+                                    </DataTemplate.Triggers>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <DataGridTemplateColumn Header="Acciones" Width="1*">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                        <Button Style="{StaticResource EditButton}" Click="btnEditar_Click"/>
+
+                                        <Button x:Name="btnEstado" Style="{StaticResource StatusButton}" Click="btnEstado_Click"/>
+                                    </StackPanel>
+                                    <DataTemplate.Triggers>
+                                        <DataTrigger Binding="{Binding Estado}" Value="True">
+                                            <Setter TargetName="btnEstado" Property="Content" Value="❌"/>
+                                            <Setter TargetName="btnEstado" Property="ToolTip" Value="Desactivar Cliente"/>
+                                            <Setter TargetName="btnEstado" Property="Foreground" Value="#d9534f"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Estado}" Value="False">
+                                            <Setter TargetName="btnEstado" Property="Content" Value="✔️"/>
+                                            <Setter TargetName="btnEstado" Property="ToolTip" Value="Activar Cliente"/>
+                                            <Setter TargetName="btnEstado" Property="Foreground" Value="#5cb85c"/>
+                                        </DataTrigger>
+                                    </DataTemplate.Triggers>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                    </DataGrid.Columns>
+                </DataGrid>
+
+            </Grid>
+        </Border>
+    </Grid>
+</Page>

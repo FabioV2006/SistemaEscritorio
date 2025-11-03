@@ -42,5 +42,13 @@ namespace CapaDatos
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DETALLE_VENTAS> DETALLE_VENTAS { get; set; }
         public virtual PRODUCTOS PRODUCTOS { get; set; }
+
+        public string InfoParaVenta
+        {
+            get
+            {
+                return $"{NumeroLote} (Stock: {Stock} | Vence: {FechaVencimiento:dd/MM/yy})";
+            }
+        }
     }
 }

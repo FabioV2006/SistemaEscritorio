@@ -1,0 +1,157 @@
+﻿<Page x:Class="CapaPresentación.Vistas.RegistrarCompraPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:CapaPresentación.Vistas"
+      mc:Ignorable="d" 
+      d:DesignHeight="700" d:DesignWidth="1000"
+      Title="RegistrarCompraPage"
+      Loaded="Page_Loaded">
+
+    <Page.Resources>
+        <Style x:Key="DeleteButton" TargetType="Button">
+            <Setter Property="Content" Value="🗑️"/>
+            <Setter Property="Background" Value="#d9534f"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Cursor" Value="Hand"/>
+        </Style>
+    </Page.Resources>
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel x:Name="FormularioCompra">
+
+            <GroupBox Header="1. Datos del Proveedor y Compra" FontWeight="Bold" Margin="0,0,0,10">
+                <Grid Margin="10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="1.5*"/>
+                        <ColumnDefinition Width="1.5*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0" Margin="0,0,10,0">
+                        <TextBlock Text="Razón Social Proveedor:" Margin="0,0,0,5"/>
+                        <TextBox x:Name="txtRazonSocialProv" IsReadOnly="True" Background="#eee" Padding="5"/>
+                    </StackPanel>
+
+                    <Button x:Name="btnBuscarProveedor" Grid.Column="1" Content="Buscar" 
+                            Padding="10,5" VerticalAlignment="Bottom" 
+                            Click="btnBuscarProveedor_Click"/>
+
+                    <StackPanel Grid.Column="2" Margin="10,0,0,0">
+                        <TextBlock Text="Tipo Documento:" Margin="0,0,0,5"/>
+                        <ComboBox x:Name="cboTipoDocumento" Padding="5" SelectedIndex="0">
+                            <ComboBoxItem Content="Factura"/>
+                            <ComboBoxItem Content="Guía de Remisión"/>
+                        </ComboBox>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="3" Margin="10,0,0,0">
+                        <TextBlock Text="Número Documento:" Margin="0,0,0,5"/>
+                        <TextBox x:Name="txtNumeroDocumento" Padding="5"/>
+                    </StackPanel>
+
+                    <TextBox x:Name="txtIdProveedor" Visibility="Collapsed"/>
+                </Grid>
+            </GroupBox>
+
+            <GroupBox Header="2. Registrar Ingreso de Lotes" FontWeight="Bold" Margin="0,0,0,10">
+                <StackPanel Margin="10">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0" Margin="0,0,10,0">
+                            <TextBlock Text="Producto:" Margin="0,0,0,5"/>
+                            <TextBox x:Name="txtProductoNombre" IsReadOnly="True" Background="#eee" Padding="5"/>
+                            <TextBox x:Name="txtIdProducto" Visibility="Collapsed"/>
+                        </StackPanel>
+                        <Button x:Name="btnBuscarProducto" Grid.Column="1" Content="Buscar" 
+                                Padding="10,5" VerticalAlignment="Bottom" 
+                                Click="btnBuscarProducto_Click"/>
+                    </Grid>
+
+                    <Grid Margin="0,10,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="0" Margin="0,0,5,0">
+                            <TextBlock Text="Nro. Lote:" Margin="0,0,0,5"/>
+                            <TextBox x:Name="txtLoteNumero" Padding="5"/>
+                        </StackPanel>
+                        <StackPanel Grid.Column="1" Margin="5,0,5,0">
+                            <TextBlock Text="Fecha Venc:" Margin="0,0,0,5"/>
+                            <DatePicker x:Name="dpFechaVenc" Padding="3"/>
+                        </StackPanel>
+                        <StackPanel Grid.Column="2" Margin="5,0,5,0">
+                            <TextBlock Text="Precio Compra:" Margin="0,0,0,5"/>
+                            <TextBox x:Name="txtPrecioCompra" Padding="5" PreviewTextInput="NumberValidationTextBox"/>
+                        </StackPanel>
+                        <StackPanel Grid.Column="3" Margin="5,0,5,0">
+                            <TextBlock Text="Precio Venta:" Margin="0,0,0,5"/>
+                            <TextBox x:Name="txtPrecioVenta" Padding="5" PreviewTextInput="NumberValidationTextBox"/>
+                        </StackPanel>
+                        <StackPanel Grid.Column="4" Margin="5,0,10,0">
+                            <TextBlock Text="Cantidad:" Margin="0,0,0,5"/>
+                            <TextBox x:Name="txtCantidad" Padding="5" PreviewTextInput="NumberValidationTextBox"/>
+                        </StackPanel>
+                        <Button x:Name="btnAnadir" Grid.Column="5" Content="✚ Añadir" 
+                                Padding="10,5" VerticalAlignment="Bottom" 
+                                Background="#5cb85c" Foreground="White"
+                                Click="btnAnadir_Click"/>
+                    </Grid>
+                </StackPanel>
+            </GroupBox>
+
+            <DataGrid x:Name="dgDetalleCompra" AutoGenerateColumns="False" 
+                      CanUserAddRows="False" IsReadOnly="True" 
+                      HeadersVisibility="Column" Background="White"
+                      Height="250" Margin="0,0,0,10"
+                      GridLinesVisibility="Vertical" VerticalGridLinesBrush="#DDD"
+                      HorizontalGridLinesBrush="#DDD">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Producto" Binding="{Binding NombreProducto}" Width="2.5*"/>
+                    <DataGridTextColumn Header="Nro. Lote" Binding="{Binding NumeroLote}" Width="1*"/>
+                    <DataGridTextColumn Header="Vencimiento" Binding="{Binding FechaVencimiento, StringFormat='dd/MM/yyyy'}" Width="1*"/>
+                    <DataGridTextColumn Header="Cant." Binding="{Binding Cantidad}" Width="0.6*"/>
+                    <DataGridTextColumn Header="Precio Compra" Binding="{Binding PrecioCompra, StringFormat='C'}" Width="1*"/>
+                    <DataGridTextColumn Header="Precio Venta" Binding="{Binding PrecioVenta, StringFormat='C'}" Width="1*"/>
+                    <DataGridTextColumn Header="Subtotal" Binding="{Binding MontoTotal, StringFormat='C'}" Width="1.2*" FontWeight="Bold"/>
+                    <DataGridTemplateColumn Width="0.5*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Style="{StaticResource DeleteButton}" Click="btnEliminarItem_Click"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <Border Background="White" CornerRadius="5" BorderBrush="#DDD" BorderThickness="1" Padding="15">
+                <Grid>
+                    <TextBlock x:Name="txtMontoTotal" Text="Monto Total Compra: S/ 0.00" 
+                               FontSize="18" FontWeight="Bold" 
+                               VerticalAlignment="Center" HorizontalAlignment="Left"/>
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Button x:Name="btnRegistrarCompra" Content="Registrar Compra" 
+                                Padding="15,8" 
+                                Background="#0078d4" 
+                                Foreground="White" 
+                                FontWeight="Bold"
+                                Click="btnRegistrarCompra_Click"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+        </StackPanel>
+    </ScrollViewer>
+</Page>

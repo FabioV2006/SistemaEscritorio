@@ -1,0 +1,80 @@
+﻿<Page x:Class="CapaPresentación.Vistas.ReportesPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:CapaPresentación.Vistas"
+      mc:Ignorable="d" 
+      d:DesignHeight="600" d:DesignWidth="1000"
+      Title="ReportesPage"
+      Loaded="Page_Loaded">
+
+    <Grid>
+        <UniformGrid Columns="3" Rows="1" Margin="10">
+
+            <Border Background="White" CornerRadius="5" BorderBrush="#DDD" BorderThickness="1" Margin="10">
+                <StackPanel>
+                    <Border Background="#f9f9f9" BorderBrush="#DDD" BorderThickness="0,0,0,1" CornerRadius="5,5,0,0">
+                        <TextBlock Text="Reporte de Ventas" FontSize="16" FontWeight="Bold" Padding="15"/>
+                    </Border>
+
+                    <StackPanel Margin="15">
+                        <TextBlock Text="Fecha Inicio:" FontWeight="Medium" Margin="0,5,0,3"/>
+                        <DatePicker x:Name="dpVentas_FechaInicio" Padding="5"/>
+
+                        <TextBlock Text="Fecha Fin:" FontWeight="Medium" Margin="0,10,0,3"/>
+                        <DatePicker x:Name="dpVentas_FechaFin" Padding="5"/>
+
+                        <TextBlock Text="Cliente:" FontWeight="Medium" Margin="0,10,0,3"/>
+                        <ComboBox x:Name="cboVentas_Cliente" Padding="5"/>
+
+                        <Button x:Name="btnGenerarReporteVentas" Content="Generar Reporte" 
+                                Padding="10,5" Margin="0,20,0,0" 
+                                Background="#0078d4" Foreground="White" 
+                                FontWeight="Bold" Click="btnGenerarReporteVentas_Click"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <Border Background="White" CornerRadius="5" BorderBrush="#DDD" BorderThickness="1" Margin="10">
+                <StackPanel>
+                    <Border Background="#f9f9f9" BorderBrush="#DDD" BorderThickness="0,0,0,1" CornerRadius="5,5,0,0">
+                        <TextBlock Text="Reporte de Lotes por Vencer" FontSize="16" FontWeight="Bold" Padding="15"/>
+                    </Border>
+
+                    <StackPanel Margin="15">
+                        <TextBlock Text="Vencen antes de:" FontWeight="Medium" Margin="0,5,0,3"/>
+                        <DatePicker x:Name="dpLotes_FechaVenc" Padding="5"/>
+
+                        <TextBlock Text="Producto:" FontWeight="Medium" Margin="0,10,0,3"/>
+                        <ComboBox x:Name="cboLotes_Producto" Padding="5" IsEnabled="False"/>
+
+                        <Button x:Name="btnGenerarReporteLotes" Content="Generar Reporte" 
+                                Padding="10,5" Margin="0,20,0,0" 
+                                Background="#0078d4" Foreground="White" 
+                                FontWeight="Bold" IsEnabled="False"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <Border Background="White" CornerRadius="5" BorderBrush="#DDD" BorderThickness="1" Margin="10">
+                <StackPanel>
+                    <Border Background="#f9f9f9" BorderBrush="#DDD" BorderThickness="0,0,0,1" CornerRadius="5,5,0,0">
+                        <TextBlock Text="Reporte de Trazabilidad" FontSize="16" FontWeight="Bold" Padding="15"/>
+                    </Border>
+
+                    <StackPanel Margin="15">
+                        <TextBlock Text="Número de Lote:" FontWeight="Medium" Margin="0,5,0,3"/>
+                        <TextBox x:Name="txtTraza_Lote" Padding="5" IsEnabled="False"/>
+
+                        <Button x:Name="btnGenerarReporteTraza" Content="Generar Reporte" 
+                                Padding="10,5" Margin="0,20,0,0" 
+                                Background="#0078d4" Foreground="White" 
+                                FontWeight="Bold" IsEnabled="False"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+        </UniformGrid>
+    </Grid>
+</Page>
