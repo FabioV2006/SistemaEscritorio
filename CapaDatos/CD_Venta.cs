@@ -114,5 +114,28 @@ namespace CapaDatos
                 return new List<DETALLE_VENTAS>();
             }
         }
+        public VENTAS ObtenerVentaParaDevolucion(string numeroDocumento)
+        {
+            try
+            {
+                // ----- LA CORRECCIÓN -----
+                // 1. Quitamos espacios en blanco al inicio/final del input
+                string docBuscado = numeroDocumento.Trim();
+
+                // 2. Comparamos el texto de la BD (con Trim) y el input (con docBuscado),
+                //    ignorando mayúsculas y minúsculas (OrdinalIgnoreCase).
+                return db.VENTAS
+                         .Include("CLIENTES")
+                         .Include("DETALLE_VENTAS")
+                         .Include("DETALLE_VENTAS.LOTES")
+                         .Include("DETALLE_VENTAS.LOTES.PRODUCTOS")
+                         .FirstOrDefault(v => string.Equals(v.NumeroDocumento.Trim(), docBuscado, StringComparison.OrdinalIgnoreCase));
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error en CD_Venta.ObtenerVentaParaDevolucion: " + ex.Message);
+                return null;
+            }
+        }
     }
 }

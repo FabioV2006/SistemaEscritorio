@@ -74,6 +74,9 @@
     <Compile Include="ModalBuscarProveedor.xaml.cs">
       <DependentUpon>ModalBuscarProveedor.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ModalBuscarVenta.xaml.cs">
+      <DependentUpon>ModalBuscarVenta.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ModalCategoria.xaml.cs">
       <DependentUpon>ModalCategoria.xaml</DependentUpon>
     </Compile>
@@ -112,6 +115,9 @@
     </Compile>
     <Compile Include="Vistas\DashboardPage.xaml.cs">
       <DependentUpon>DashboardPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Vistas\DevolucionClientePage.xaml.cs">
+      <DependentUpon>DevolucionClientePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Vistas\GestionClientesPage.xaml.cs">
       <DependentUpon>GestionClientesPage.xaml</DependentUpon>
@@ -171,6 +177,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="ModalBuscarVenta.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ModalCategoria.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -220,6 +230,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Vistas\DashboardPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Vistas\DevolucionClientePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
