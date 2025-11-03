@@ -93,52 +93,148 @@ namespace CapaPresentación.Vistas
 
         private void btnBuscarCompra_Click(object sender, RoutedEventArgs e)
         {
-            LimpiarFormulario();
-
-            // 1. Abrir el modal de búsqueda de Compras
-            ModalBuscarCompra modal = new ModalBuscarCompra();
-            if (modal.ShowDialog() == true)
+            try
             {
-                // 2. Obtener la compra básica
+                LimpiarFormulario();
+
+                // 1. Abrir el modal de búsqueda
+                ModalBuscarCompra modal = new ModalBuscarCompra();
+                if (modal.ShowDialog() != true)
+                {
+                    return; // Usuario canceló
+                }
+
+                // 2. Obtener la compra básica seleccionada
                 COMPRAS compraResumen = modal.CompraSeleccionada;
 
-                // 3. Obtener la compra COMPLETA (con detalles y lotes)
-                compraEncontrada = cn_compra.ObtenerCompraParaDevolucion(compraResumen.NumeroDocumento);
-
-                if (compraEncontrada == null)
+                if (compraResumen == null || string.IsNullOrEmpty(compraResumen.NumeroDocumento))
                 {
-                    MessageBox.Show("Error al cargar los detalles completos de la compra.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("No se seleccionó ninguna compra válida.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return;
                 }
 
-                // 4. Llenar el formulario
+                // 3. Mostrar mensaje de carga
+                txtNroDocCompra.Text = "Cargando...";
+                this.Cursor = System.Windows.Input.Cursors.Wait;
+
+                // 4. Obtener la compra completa con todos sus detalles
+                compraEncontrada = cn_compra.ObtenerCompraParaDevolucion(compraResumen.NumeroDocumento);
+
+                // 5. Validaciones exhaustivas
+                if (compraEncontrada == null)
+                {
+                    MessageBox.Show(
+                        $"No se pudo cargar la compra con el número de documento: {compraResumen.NumeroDocumento}\n\n" +
+                        "Posibles causas:\n" +
+                        "- La compra fue eliminada\n" +
+                        "- Error de conexión con la base de datos",
+                        "Error al Cargar Compra",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Error);
+                    return;
+                }
+
+                if (compraEncontrada.DETALLE_COMPRAS == null || compraEncontrada.DETALLE_COMPRAS.Count == 0)
+                {
+                    MessageBox.Show(
+                        $"La compra {compraEncontrada.NumeroDocumento} no tiene productos asociados.\n\n" +
+                        "Esto puede indicar un problema con los datos de la compra.",
+                        "Compra Sin Detalles",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Warning);
+                    LimpiarFormulario();
+                    return;
+                }
+
+                if (compraEncontrada.PROVEEDORES == null)
+                {
+                    MessageBox.Show(
+                        $"No se pudo cargar la información del proveedor de la compra {compraEncontrada.NumeroDocumento}",
+                        "Error de Datos",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Warning);
+                    LimpiarFormulario();
+                    return;
+                }
+
+                // 6. Llenar el formulario
                 txtNroDocCompra.Text = compraEncontrada.NumeroDocumento;
                 txtProveedor.Text = compraEncontrada.PROVEEDORES.RazonSocial;
-                txtFechaCompra.Text = compraEncontrada.FechaRegistro?.ToString("dd/MM/yyyy");
+                txtFechaCompra.Text = compraEncontrada.FechaRegistro?.ToString("dd/MM/yyyy HH:mm") ?? "N/A";
 
-                // 5. Llenar la grilla con los lotes de esa compra
+                // 7. Llenar la grilla con validaciones por cada detalle
+                int detallesCargados = 0;
                 foreach (var detalle in compraEncontrada.DETALLE_COMPRAS)
                 {
+                    // Validar que el detalle tenga lote
+                    if (detalle.LOTES == null)
+                    {
+                        Console.WriteLine($"Advertencia: Detalle {detalle.IdDetalleCompra} sin lote asociado.");
+                        continue;
+                    }
+
+                    // Validar que el lote tenga producto
+                    if (detalle.LOTES.PRODUCTOS == null)
+                    {
+                        Console.WriteLine($"Advertencia: Lote {detalle.LOTES.IdLote} sin producto asociado.");
+                        continue;
+                    }
+
                     itemsParaDevolver.Add(new DevolucionProveedorItemViewModel
                     {
                         IdLote = detalle.IdLote.Value,
-                        NombreProducto = detalle.LOTES.PRODUCTOS.Nombre,
-                        NumeroLote = detalle.LOTES.NumeroLote,
-                        CantidadComprada = detalle.Cantidad.Value,
+                        NombreProducto = detalle.LOTES.PRODUCTOS.Nombre ?? "Producto sin nombre",
+                        NumeroLote = detalle.LOTES.NumeroLote ?? "N/A",
+                        CantidadComprada = detalle.Cantidad ?? 0,
                         StockActualLote = detalle.LOTES.Stock, // El stock actual real
-                        PrecioUnitarioCosto = detalle.PrecioCompraUnitario.Value,
+                        PrecioUnitarioCosto = detalle.PrecioCompraUnitario ?? 0,
                         CantidadADevolver = 0, // Inicia en 0
                         Motivo = ""
                     });
+
+                    detallesCargados++;
                 }
 
-                // Suscribirse a los eventos de cambio
+                if (detallesCargados == 0)
+                {
+                    MessageBox.Show(
+                        "No se pudieron cargar los productos de la compra.\n\n" +
+                        "Verifique que la compra tenga productos con lotes válidos.",
+                        "Sin Productos Válidos",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Warning);
+                    LimpiarFormulario();
+                    return;
+                }
+
+                // 8. Suscribirse a los eventos de cambio
                 foreach (var item in itemsParaDevolver)
                 {
                     item.PropertyChanged += Item_PropertyChanged;
                 }
 
                 ActualizarTotalDevolucion();
+
+                MessageBox.Show(
+                    $"Compra cargada correctamente.\n" +
+                    $"Productos encontrados: {detallesCargados}",
+                    "Éxito",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    $"Error inesperado al buscar la compra:\n\n{ex.Message}\n\n" +
+                    $"Detalles técnicos:\n{ex.StackTrace}",
+                    "Error Crítico",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+                LimpiarFormulario();
+            }
+            finally
+            {
+                this.Cursor = System.Windows.Input.Cursors.Arrow;
             }
         }
 

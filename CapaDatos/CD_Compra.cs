@@ -126,21 +126,60 @@ namespace CapaDatos
         {
             try
             {
-                string docBuscado = numeroDocumento.Trim();
+                // 1. Quitamos espacios en blanco al inicio/final del input
+                string docBuscado = numeroDocumento?.Trim() ?? "";
 
-                // Carga la compra y toda la info necesaria para la devolución
-                return db.COMPRAS
-                         .Include("PROVEEDORES")
-                         .Include("DETALLE_COMPRAS")
-                         .Include("DETALLE_COMPRAS.LOTES") // El detalle de la compra nos da el Lote
-                         .Include("DETALLE_COMPRAS.LOTES.PRODUCTOS") // El Lote nos da el Producto
-                         .FirstOrDefault(c => string.Equals(c.NumeroDocumento.Trim(), docBuscado, StringComparison.OrdinalIgnoreCase));
+                // 2. Validación adicional
+                if (string.IsNullOrEmpty(docBuscado))
+                {
+                    Console.WriteLine("Error: El número de documento está vacío.");
+                    return null;
+                }
+
+                // 3. Buscar la compra con eager loading completo
+                var compra = db.COMPRAS
+                             .Include("PROVEEDORES")
+                             .Include("USUARIOS")
+                             .Include("DETALLE_COMPRAS")
+                             .Include("DETALLE_COMPRAS.LOTES")
+                             .Include("DETALLE_COMPRAS.LOTES.PRODUCTOS")
+                             .FirstOrDefault(c => c.NumeroDocumento.Trim().ToLower() == docBuscado.ToLower());
+
+                // 4. Validación adicional de que se cargaron los detalles
+                if (compra != null)
+                {
+                    // Forzar la carga explícita si no se cargó automáticamente
+                    if (compra.DETALLE_COMPRAS == null || compra.DETALLE_COMPRAS.Count == 0)
+                    {
+                        Console.WriteLine($"Advertencia: La compra {compra.IdCompra} no tiene detalles cargados.");
+                        db.Entry(compra).Collection(c => c.DETALLE_COMPRAS).Load();
+
+                        foreach (var detalle in compra.DETALLE_COMPRAS)
+                        {
+                            db.Entry(detalle).Reference(d => d.LOTES).Load();
+                            if (detalle.LOTES != null)
+                            {
+                                db.Entry(detalle.LOTES).Reference(l => l.PRODUCTOS).Load();
+                            }
+                        }
+                    }
+
+                    Console.WriteLine($"Compra encontrada: {compra.NumeroDocumento} con {compra.DETALLE_COMPRAS.Count} detalles.");
+                }
+                else
+                {
+                    Console.WriteLine($"No se encontró ninguna compra con el número de documento: {docBuscado}");
+                }
+
+                return compra;
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error en CD_Compra.ObtenerCompraParaDevolucion: " + ex.Message);
+                Console.WriteLine($"Error en CD_Compra.ObtenerCompraParaDevolucion: {ex.Message}");
+                Console.WriteLine($"StackTrace: {ex.StackTrace}");
                 return null;
             }
         }
+
     }
 }

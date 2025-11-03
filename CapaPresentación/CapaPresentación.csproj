@@ -47,6 +47,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Printing" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -119,6 +120,7 @@
     <Compile Include="ModalUsuario.xaml.cs">
       <DependentUpon>ModalUsuario.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Utilidades\NumeroALetras.cs" />
     <Compile Include="Vistas\AdministracionPage.xaml.cs">
       <DependentUpon>AdministracionPage.xaml</DependentUpon>
     </Compile>
@@ -352,6 +354,9 @@
       <Project>{c279bec2-8b48-4787-b3fb-b43e799ea768}</Project>
       <Name>CapaNegocio</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Recursos\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
