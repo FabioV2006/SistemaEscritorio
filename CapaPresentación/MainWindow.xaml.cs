@@ -108,9 +108,29 @@ namespace CapaPresentación
 
         private void BtnCerrarSesion_Click(object sender, RoutedEventArgs e)
         {
-            LoginWindow login = new LoginWindow();
-            login.Show();
+            // Cambiar ShutdownMode temporalmente
+            Application.Current.ShutdownMode = ShutdownMode.OnExplicitShutdown;
+
+            // Cerrar esta ventana
             this.Close();
+
+            // Mostrar el login nuevamente
+            LoginWindow login = new LoginWindow();
+            bool? result = login.ShowDialog();
+
+            if (result == true)
+            {
+                // Si el login es exitoso, abrir una nueva MainWindow
+                Application.Current.ShutdownMode = ShutdownMode.OnMainWindowClose;
+                MainWindow mainWindow = new MainWindow(login.UsuarioLogueado);
+                Application.Current.MainWindow = mainWindow;
+                mainWindow.Show();
+            }
+            else
+            {
+                // Si cancela el login, cerrar la aplicación
+                Application.Current.Shutdown();
+            }
         }
     }
 }
