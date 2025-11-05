@@ -59,6 +59,7 @@
     <Compile Include="CN_DevolucionProveedor.cs" />
     <Compile Include="CN_Laboratorio.cs" />
     <Compile Include="CN_Lote.cs" />
+    <Compile Include="CN_Negocio.cs" />
     <Compile Include="CN_Permiso.cs" />
     <Compile Include="CN_Producto.cs" />
     <Compile Include="CN_Proveedor.cs" />

@@ -120,6 +120,7 @@
     <Compile Include="ModalUsuario.xaml.cs">
       <DependentUpon>ModalUsuario.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Utilidades\ImpresionHelper.cs" />
     <Compile Include="Utilidades\NumeroALetras.cs" />
     <Compile Include="Vistas\AdministracionPage.xaml.cs">
       <DependentUpon>AdministracionPage.xaml</DependentUpon>
@@ -356,7 +357,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Recursos\" />
+    <Folder Include="Resources\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
