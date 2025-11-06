@@ -114,5 +114,63 @@ namespace CapaDatos
                 return new List<DETALLE_VENTAS>();
             }
         }
+        public VENTAS ObtenerVentaParaDevolucion(string numeroDocumento)
+        {
+            try
+            {
+                // 1. Quitamos espacios en blanco al inicio/final del input
+                string docBuscado = numeroDocumento?.Trim() ?? "";
+
+                // 2. Validación adicional
+                if (string.IsNullOrEmpty(docBuscado))
+                {
+                    Console.WriteLine("Error: El número de documento está vacío.");
+                    return null;
+                }
+
+                // 3. Buscar la venta con eager loading completo
+                var venta = db.VENTAS
+                         .Include("CLIENTES")
+                         .Include("USUARIOS")
+                         .Include("DETALLE_VENTAS")
+                         .Include("DETALLE_VENTAS.LOTES")
+                         .Include("DETALLE_VENTAS.LOTES.PRODUCTOS")
+                         .FirstOrDefault(v => v.NumeroDocumento.Trim().ToLower() == docBuscado.ToLower());
+
+                // 4. Validación adicional de que se cargaron los detalles
+                if (venta != null)
+                {
+                    // Forzar la carga explícita si no se cargó automáticamente
+                    if (venta.DETALLE_VENTAS == null || venta.DETALLE_VENTAS.Count == 0)
+                    {
+                        Console.WriteLine($"Advertencia: La venta {venta.IdVenta} no tiene detalles cargados.");
+                        db.Entry(venta).Collection(v => v.DETALLE_VENTAS).Load();
+
+                        foreach (var detalle in venta.DETALLE_VENTAS)
+                        {
+                            db.Entry(detalle).Reference(d => d.LOTES).Load();
+                            if (detalle.LOTES != null)
+                            {
+                                db.Entry(detalle.LOTES).Reference(l => l.PRODUCTOS).Load();
+                            }
+                        }
+                    }
+
+                    Console.WriteLine($"Venta encontrada: {venta.NumeroDocumento} con {venta.DETALLE_VENTAS.Count} detalles.");
+                }
+                else
+                {
+                    Console.WriteLine($"No se encontró ninguna venta con el número de documento: {docBuscado}");
+                }
+
+                return venta;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error en CD_Venta.ObtenerVentaParaDevolucion: {ex.Message}");
+                Console.WriteLine($"StackTrace: {ex.StackTrace}");
+                return null;
+            }
+        }
     }
 }

@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using CapaDatos;
 using CapaNegocio;
+using CapaPresentación.Utilidades;
 
 namespace CapaPresentación
 {
@@ -20,6 +21,7 @@ namespace CapaPresentación
     {
         private CN_Compra cn_compra = new CN_Compra();
         private COMPRAS _compra;
+        private List<DETALLE_COMPRAS> _detalles;
 
         public ModalDetalleCompra(COMPRAS oCompra)
         {
@@ -44,13 +46,27 @@ namespace CapaPresentación
             txtMontoTotal.Text = $"Monto Total: {_compra.MontoTotal:C}";
 
             // 2. Cargar la grilla de detalle (haciendo una nueva consulta)
-            List<DETALLE_COMPRAS> detalle = cn_compra.ObtenerDetalle(_compra.IdCompra);
-            dgDetalle.ItemsSource = detalle;
+            _detalles = cn_compra.ObtenerDetalle(_compra.IdCompra);
+            dgDetalle.ItemsSource = _detalles;
         }
 
         private void btnImprimir_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show($"Simulando impresión de Guía/Factura: {_compra.NumeroDocumento}", "Imprimir", MessageBoxButton.OK, MessageBoxImage.Information);
+            try
+            {
+                if (_compra == null || _detalles == null)
+                {
+                    MessageBox.Show("No hay datos para imprimir.", "Advertencia", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+
+                // Llamar a la utilidad de impresión
+                ImpresionHelper.ImprimirCompra(_compra, _detalles);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al imprimir: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void btnCerrar_Click(object sender, RoutedEventArgs e)

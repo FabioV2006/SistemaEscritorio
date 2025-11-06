@@ -45,5 +45,13 @@ namespace CapaNegocio
         {
             return cd_compra.ObtenerDetalle(idCompra);
         }
+        public COMPRAS ObtenerCompraParaDevolucion(string numeroDocumento)
+        {
+            if (string.IsNullOrEmpty(numeroDocumento))
+            {
+                return null;
+            }
+            return cd_compra.ObtenerCompraParaDevolucion(numeroDocumento);
+        }
     }
 }

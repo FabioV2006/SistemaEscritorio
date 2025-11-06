@@ -49,5 +49,13 @@ namespace CapaNegocio
             }
             return cd_venta.ObtenerDetalle(idVenta);
         }
+        public VENTAS ObtenerVentaParaDevolucion(string numeroDocumento)
+        {
+            if (string.IsNullOrEmpty(numeroDocumento))
+            {
+                return null;
+            }
+            return cd_venta.ObtenerVentaParaDevolucion(numeroDocumento);
+        }
     }
 }

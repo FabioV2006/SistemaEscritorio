@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using CapaDatos;
 using CapaNegocio;
+using CapaPresentación.Utilidades;
 
 namespace CapaPresentación
 {
@@ -20,6 +21,7 @@ namespace CapaPresentación
     {
         private CN_Venta cn_venta = new CN_Venta();
         private VENTAS _venta;
+        private List<DETALLE_VENTAS> _detalles;
 
         public ModalDetalleVenta(VENTAS oVenta)
         {
@@ -51,14 +53,27 @@ namespace CapaPresentación
             txtMontoCambio.Text = $"{_venta.MontoCambio:C}";
 
             // 2. Cargar la grilla de detalle (haciendo una nueva consulta)
-            List<DETALLE_VENTAS> detalle = cn_venta.ObtenerDetalle(_venta.IdVenta);
-            dgDetalle.ItemsSource = detalle;
+            _detalles = cn_venta.ObtenerDetalle(_venta.IdVenta);
+            dgDetalle.ItemsSource = _detalles;
         }
 
         private void btnImprimir_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show($"Simulando impresión de: {_venta.NumeroDocumento}", "Imprimir", MessageBoxButton.OK, MessageBoxImage.Information);
-            // Aquí llamarías a tu lógica de generación de PDF o impresión
+            try
+            {
+                if (_venta == null || _detalles == null)
+                {
+                    MessageBox.Show("No hay datos para imprimir.", "Advertencia", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+
+                // Llamar a la utilidad de impresión
+                ImpresionHelper.ImprimirVenta(_venta, _detalles);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al imprimir: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void btnCerrar_Click(object sender, RoutedEventArgs e)

@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using CapaDatos;
 using CapaNegocio;
+using CapaPresentación.Utilidades;
+using System.Collections;
 
 namespace CapaPresentación.Vistas
 {
@@ -148,7 +150,10 @@ namespace CapaPresentación.Vistas
 
         private void btnExportarExcel_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Simulando exportación a Excel... 📄", "Exportar", MessageBoxButton.OK, MessageBoxImage.Information);
+            string titulo = "Reporte_de_Productos";
+
+            // Llama a la nueva función, pasándole el DataGrid
+            ExportadorHelper.ExportarDataGridAExcel(dgProductos, titulo);
         }
     }
 }

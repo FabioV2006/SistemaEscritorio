@@ -1,0 +1,36 @@
+﻿<Window x:Class="CapaPresentación.ModalBuscarVenta"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Buscar Venta Realizada" Height="450" Width="700"
+        WindowStartupLocation="CenterOwner" WindowStyle="ToolWindow"
+        Loaded="Window_Loaded">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Border Background="#f9f9f9" BorderBrush="#DDD" BorderThickness="0,0,0,1" Padding="10">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Buscar por:" VerticalAlignment="Center" Margin="5"/>
+                <ComboBox x:Name="cboFiltro" Width="150" Margin="5" Padding="5" SelectedIndex="0">
+                    <ComboBoxItem Content="Nro. Documento"/>
+                    <ComboBoxItem Content="Razón Social Cliente"/>
+                </ComboBox>
+                <TextBox x:Name="txtBusqueda" Width="200" Margin="5" Padding="5" KeyDown="txtBusqueda_KeyDown"/>
+                <Button x:Name="btnBuscar" Content="🔍" Margin="5" Padding="10,5" Click="btnBuscar_Click"/>
+            </StackPanel>
+        </Border>
+
+        <DataGrid Grid.Row="1" x:Name="dgVentas" AutoGenerateColumns="False" 
+                  CanUserAddRows="False" IsReadOnly="True" Background="White"
+                  MouseDoubleClick="dgVentas_MouseDoubleClick" SelectionMode="Single">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Nro. Documento" Binding="{Binding NumeroDocumento}" Width="1.2*"/>
+                <DataGridTextColumn Header="Cliente" Binding="{Binding CLIENTES.RazonSocial}" Width="2.5*"/>
+                <DataGridTextColumn Header="Fecha" Binding="{Binding FechaRegistro, StringFormat='dd/MM/yyyy'}" Width="1*"/>
+                <DataGridTextColumn Header="Monto Total" Binding="{Binding MontoTotal, StringFormat='C'}" Width="1*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>
