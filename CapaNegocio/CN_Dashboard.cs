@@ -11,6 +11,10 @@ namespace CapaNegocio
     {
         private CD_Dashboard cd_dashboard = new CD_Dashboard();
 
+        // ======================================================
+        // === MÉTODOS KPI EXISTENTES (TU CÓDIGO) ===
+        // ======================================================
+
         public decimal ObtenerTotalVentasMes()
         {
             return cd_dashboard.ObtenerTotalVentasMes();
@@ -31,6 +35,25 @@ namespace CapaNegocio
         {
             // Regla de Negocio: "Stock Crítico" es cuando un producto tiene menos de 10 unidades en un lote.
             return cd_dashboard.ObtenerStockCritico(10);
+        }
+
+        // ======================================================
+        // ===    NUEVOS MÉTODOS PARA GRÁFICOS     ===
+        // ======================================================
+
+        public List<ReporteVentaMensual> ObtenerVentasMensuales(DateTime fechaInicio, DateTime fechaFin)
+        {
+            return cd_dashboard.ObtenerVentasMensuales(fechaInicio, fechaFin);
+        }
+
+        public List<ReporteTopProducto> ObtenerTopProductos(DateTime fechaInicio, DateTime fechaFin)
+        {
+            return cd_dashboard.ObtenerTopProductos(fechaInicio, fechaFin);
+        }
+
+        public List<ReporteVentaCategoria> ObtenerVentasCategoria(DateTime fechaInicio, DateTime fechaFin)
+        {
+            return cd_dashboard.ObtenerVentasCategoria(fechaInicio, fechaFin);
         }
     }
 }
